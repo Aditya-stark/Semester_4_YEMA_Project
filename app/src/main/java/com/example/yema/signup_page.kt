@@ -5,26 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import org.w3c.dom.Text
 
-class Login_page : AppCompatActivity() {
+class signup_page : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_page)
+        setContentView(R.layout.activity_sign_up)
 
-        val signup_btn_hyper: TextView = findViewById<TextView>(R.id.sign_up_btn)
+        val signin_btn_hyper: TextView = findViewById<TextView>(R.id.sign_in_btn)
 
-        signup_btn_hyper.setOnClickListener{
-            startActivity(Intent(this, signup_page::class.java))
+        signin_btn_hyper.setOnClickListener{
+            startActivity(Intent(this, Login_page::class.java))
         }
-
-
     }
-
-
-
-
-
-
 }

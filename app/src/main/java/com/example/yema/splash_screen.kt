@@ -15,7 +15,7 @@ class splash_screen : AppCompatActivity() {
 
         enableEdgeToEdge()
         Handler(Looper.getMainLooper()).postDelayed(1000){
-            startActivity(Intent(this, Login_page::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 

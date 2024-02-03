@@ -9,17 +9,26 @@
     android:layout_marginTop="20dp"
     >
 
-   <TextView
+<!--   Back Button Yaha dalna hai But kaise-->
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_gravity="center_horizontal"
+       android:gravity="center"
+       android:layout_marginTop="20dp"
+       >
+
+      <TextView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:text="Login"
        android:textSize="24sp"
-       android:textStyle="bold"
-       android:fontFamily="@font/inter_bold"
-       android:layout_gravity="center_horizontal"
-       android:gravity="center_horizontal"
+       android:fontFamily="@font/inter_semibold"
        android:textColor="@color/Text_color"
        />
+   </LinearLayout>
+
 
    <EditText
        android:id="@+id/login_email"
@@ -32,6 +41,8 @@
        android:paddingTop="15dp"
        android:paddingBottom="15dp"
        android:paddingLeft="20dp"
+       android:layout_marginTop="50dp"
+
       />
 
    <EditText
@@ -48,9 +59,13 @@
        android:paddingRight="20dp"
        android:inputType="textPassword"
        android:drawableEnd="@drawable/show_password_eye"
+
+       android:layout_marginTop="25dp"
+
        />
 
    <Button
+       android:id="@+id/login_btn"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_marginLeft="20dp"
@@ -58,13 +73,62 @@
        android:paddingTop="15dp"
        android:paddingBottom="15dp"
        android:text="Login"
+       android:textSize="15sp"
        android:fontFamily="@font/inter_bold"
        android:textColor="@color/white"
        android:background="@drawable/main_blue"
 
-
-
+       android:layout_marginTop="40dp"
    />
+
+   <TextView
+       android:id="@+id/forgot_pass"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="Forgot Password?"
+       android:layout_gravity="center_horizontal"
+       android:gravity="center_horizontal"
+       android:clickable="true"
+       android:fontFamily="@font/inter_bold"
+       android:textSize="15sp"
+       android:textColor="@color/Main_Blue"
+
+       android:layout_marginTop="40dp"
+
+       />
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:layout_marginTop="50dp"
+    >
+
+   <TextView
+       android:id="@+id/sign_up_text"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Don't have an account yet?"
+       android:textColor="@color/default_light_BW"
+       android:fontFamily="@font/inter_semibold"
+
+      />
+   <TextView
+       android:id="@+id/sign_up_btn"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Sign Up"
+       android:textColor="@color/Main_Blue"
+       android:fontFamily="@font/inter_semibold"
+       android:clickable="true"
+      />
+
+</LinearLayout>
+
+
 
 
 

@@ -148,6 +148,7 @@
     <color name="Border_shade">#5B5B5B</color>
     <color name="Text_color">#FFFFFF</color>
     <color name="default_BW">#FFFFFF</color>
+    <color name="default_light_BW">#91919f</color>
 
 
 
