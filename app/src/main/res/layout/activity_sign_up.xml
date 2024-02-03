@@ -67,13 +67,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/round_text_edit"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:padding="15dp"
         android:inputType="textPassword"
         android:drawableEnd="@drawable/show_password_eye"
-
         android:layout_marginTop="25dp"
 
         />
