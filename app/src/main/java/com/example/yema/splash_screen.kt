@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.activity.enableEdgeToEdge
 import androidx.core.os.postDelayed
 
 class splash_screen : AppCompatActivity() {
@@ -12,8 +13,9 @@ class splash_screen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
+        enableEdgeToEdge()
         Handler(Looper.getMainLooper()).postDelayed(1000){
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, Login_page::class.java))
             finish()
         }
 

@@ -143,10 +143,12 @@
     <color name="Navy">#000080</color>
     <color name="Black">#000000</color>
 
-<!--    Default color-->
+    <!--    Default color-->
     <color name="Main_Blue">#3688ff</color>
-    <color name="Border_shade">#6B6B6B</color>
-    <color name="Text_color">#000000</color>
-    <color name="default_BW">#000000</color>
+    <color name="Border_shade">#5B5B5B</color>
+    <color name="Text_color">#FFFFFF</color>
+    <color name="default_BW">#FFFFFF</color>
+
+
 
 </resources>

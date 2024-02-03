@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login_page"
+    android:orientation="vertical"
+    android:layout_marginTop="20dp"
+    >
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Login"
+       android:textSize="24sp"
+       android:textStyle="bold"
+       android:fontFamily="@font/inter_bold"
+       android:layout_gravity="center_horizontal"
+       android:gravity="center_horizontal"
+       android:textColor="@color/Text_color"
+       />
+
+   <EditText
+       android:id="@+id/login_email"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:hint="Email"
+       android:layout_marginLeft="20dp"
+       android:layout_marginRight="20dp"
+       android:background="@drawable/round_text_edit"
+       android:paddingTop="15dp"
+       android:paddingBottom="15dp"
+       android:paddingLeft="20dp"
+      />
+
+   <EditText
+       android:id="@+id/login_password"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:hint="Password"
+       android:layout_marginLeft="20dp"
+       android:layout_marginRight="20dp"
+       android:background="@drawable/round_text_edit"
+       android:paddingTop="15dp"
+       android:paddingBottom="15dp"
+       android:paddingLeft="20dp"
+       android:paddingRight="20dp"
+       android:inputType="textPassword"
+       android:drawableEnd="@drawable/show_password_eye"
+       />
+
+   <Button
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginLeft="20dp"
+       android:layout_marginRight="20dp"
+       android:paddingTop="15dp"
+       android:paddingBottom="15dp"
+       android:text="Login"
+       android:fontFamily="@font/inter_bold"
+       android:textColor="@color/white"
+       android:background="@drawable/main_blue"
+
+
+
+   />
+
+
+
+
+</LinearLayout>
