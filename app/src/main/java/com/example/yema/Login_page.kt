@@ -69,16 +69,18 @@ class Login_page : AppCompatActivity() {
             }
         }
 
+
+        //Normal Login Button Code
         loginButton.setOnClickListener {
             val email = email_editText.text.toString().trim()
             val password = password_editText.text.toString().trim()
             instance.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Toast.makeText(this, "Login in Successful", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Login Successful", Toast.LENGTH_LONG).show()
                     startActivity(Intent(this, MainActivity::class.java))
                 }
                 else {
-                    Toast.makeText(this, "Error Login", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Invalid Email or Password", Toast.LENGTH_LONG).show()
                 }
             }
         }
