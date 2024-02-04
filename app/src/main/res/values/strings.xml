@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">YEMA</string>
+    <string name="app_name" translatable="false">YEMA</string>
+    <string name="default_web_client_id" translatable="true">75521472668-tr2secno392bokhj8biv9mj8kvao4ljh.apps.googleusercontent.com</string>
 </resources>

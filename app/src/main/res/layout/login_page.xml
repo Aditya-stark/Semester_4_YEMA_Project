@@ -76,6 +76,45 @@
    />
 
    <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Or with"
+       android:layout_gravity="center_horizontal"
+       android:textColor="@color/default_light_BW"
+       android:fontFamily="@font/inter_semibold"
+
+       android:layout_marginTop="30dp"
+       />
+
+   <LinearLayout
+       android:id="@+id/signin_google"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginLeft="20dp"
+       android:layout_marginRight="20dp"
+       android:layout_marginTop="25dp"
+       android:background="@drawable/round_text_edit"
+       android:paddingTop="3dp"
+       android:paddingBottom="3dp"
+       android:gravity="center"
+       android:layout_gravity="center"
+       >
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:drawableStart="@drawable/google_logo"
+          />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Sign In with Google"
+          android:fontFamily="@font/inter_semibold"
+          android:textSize="15dp"
+          />
+   </LinearLayout>
+
+   <TextView
        android:id="@+id/forgot_pass"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -90,6 +129,7 @@
        android:layout_marginTop="40dp"
 
        />
+
 
 
 <LinearLayout

@@ -27,10 +27,11 @@ class Login_page : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.login_page)
-        val instance = FirebaseAuth.getInstance()
         val loginButton = findViewById<Button>(R.id.login_btn)
 
+        val instance = FirebaseAuth.getInstance()
         val password_editText: EditText = findViewById(R.id.login_password)
         val email_editText: EditText = findViewById(R.id.login_email)
 
