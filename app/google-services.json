@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "75521472668",
+    "project_id": "yema-1c1cb",
+    "storage_bucket": "yema-1c1cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75521472668:android:fc72322c9f70bb2c411559",
+        "android_client_info": {
+          "package_name": "com.example.yema"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "75521472668-uhompapu17v4mme9jv4ej0639qo2q4rl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yema",
+            "certificate_hash": "0680cfe2fb1a42514734afb4d532c65d2a5b346e"
+          }
+        },
+        {
+          "client_id": "75521472668-tr2secno392bokhj8biv9mj8kvao4ljh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO4g5ydBotxKnFmIh6w8nJcUPYnl-puVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "75521472668-tr2secno392bokhj8biv9mj8kvao4ljh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
