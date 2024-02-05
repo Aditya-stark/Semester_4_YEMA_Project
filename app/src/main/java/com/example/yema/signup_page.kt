@@ -138,13 +138,13 @@ class signup_page : AppCompatActivity() {
             Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()
         }
     }
-    override fun onStart() {
-        super.onStart()
-
-        if (auth.currentUser!=null){
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//
+//        if (auth.currentUser!=null){
+//            startActivity(Intent(this, MainActivity::class.java))
+//        }
+//    }
 
 
 
