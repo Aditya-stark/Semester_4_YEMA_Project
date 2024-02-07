@@ -57,6 +57,13 @@ class Login_page : AppCompatActivity() {
             startActivity(Intent(this, signup_page::class.java))
         }
 
+        val forgotPass = findViewById<TextView>(R.id.forgot_pass)
+        forgotPass.setOnClickListener {
+            startActivity(Intent(this, forgot_password_page::class.java))
+        }
+
+
+
 //      Show Password
         val drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.show_password_eye)
 
