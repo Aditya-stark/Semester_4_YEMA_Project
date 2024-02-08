@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Done Logout", Toast.LENGTH_LONG).show()
 
             startActivity(Intent(this, Login_page::class.java))
-            finish() // Finish MainActivity after signing out
+            finish()// Finish MainActivity after signing out
         }
     }
 }
