@@ -88,6 +88,7 @@ class signup_page : AppCompatActivity() {
                     if (it.isSuccessful){
                         Toast.makeText(this, "Account Created!!!",Toast.LENGTH_LONG).show()
                         startActivity(Intent(this, Login_page::class.java))
+                        finish()
                     }
                     else{
                         Toast.makeText(this, "Network Error:(",Toast.LENGTH_LONG).show()
@@ -113,6 +114,7 @@ class signup_page : AppCompatActivity() {
         val signin_btn_hyper: TextView = findViewById<TextView>(R.id.sign_in_btn)
         signin_btn_hyper.setOnClickListener{
             startActivity(Intent(this, Login_page::class.java))
+            finish()
         }
     }
 
@@ -127,6 +129,7 @@ class signup_page : AppCompatActivity() {
                     if (it.isSuccessful){
                         Toast.makeText(this, "Successful", Toast.LENGTH_LONG).show()
                         startActivity(Intent(this, MainActivity::class.java))
+                        finish()
                     }
                     else{
                         Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()

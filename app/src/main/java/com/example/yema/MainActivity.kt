@@ -1,34 +1,41 @@
 package com.example.yema
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.yema.databinding.ActivityMainBinding
-import com.example.yema.databinding.ActivitySignUpBinding
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.android.gms.auth.api.signin.GoogleSignIn // Import GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions // Import GoogleSignInOptions
 
 class MainActivity : AppCompatActivity() {
-    //Here cant find the ActivitySignOutBinding
+
     private lateinit var binding: ActivityMainBinding
-    @SuppressLint("SuspiciousIndentation")
+    private lateinit var auth: FirebaseAuth // Declare FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.mainSign.setOnClickListener{
-            val gso= GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
-            val go = GoogleSignIn.getClient(this,gso)
-            go.signOut()
+        auth = FirebaseAuth.getInstance() // Initialize FirebaseAuth
+
+        binding.mainSign.setOnClickListener {
+            // Sign out from Firebase Authentication
+            auth.signOut()
+
+            // Sign out from Google Authentication
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build()
+            val googleSignInClient = GoogleSignIn.getClient(this, gso)
+            googleSignInClient.signOut()
+
             Toast.makeText(this, "Done Logout", Toast.LENGTH_LONG).show()
 
-            startActivity(Intent(this,Login_page::class.java))
+            startActivity(Intent(this, Login_page::class.java))
+            finish() // Finish MainActivity after signing out
         }
-
-
-
     }
 }

@@ -2,6 +2,7 @@ package com.example.yema
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.MotionEvent
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -55,6 +57,7 @@ class Login_page : AppCompatActivity() {
         val signup_btn_hyper: TextView = findViewById<TextView>(R.id.sign_up_btn)
         signup_btn_hyper.setOnClickListener{
             startActivity(Intent(this, signup_page::class.java))
+            finish()
         }
 
         val forgotPass = findViewById<TextView>(R.id.forgot_pass)
@@ -91,19 +94,22 @@ class Login_page : AppCompatActivity() {
             }
         }
 
-
         //Normal Login Button Code
         loginButton.setOnClickListener {
             val email = email_editText.text.toString().trim()
             val password = password_editText.text.toString().trim()
+
             instance.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_LONG).show()
+
                     startActivity(Intent(this, MainActivity::class.java))
+                    finish()
                 }
                 else {
                     Toast.makeText(this, "Invalid Email or Password", Toast.LENGTH_LONG).show()
                 }
+
             }
         }
 
@@ -117,9 +123,6 @@ class Login_page : AppCompatActivity() {
             //startActivity(signInClient)
             launcher.launch(signInClient)
         }
-
-
-
     }
 
     private val launcher=registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -133,6 +136,7 @@ class Login_page : AppCompatActivity() {
                     if (it.isSuccessful){
                         Toast.makeText(this, "Successful", Toast.LENGTH_LONG).show()
                         startActivity(Intent(this, MainActivity::class.java))
+                        finish()
                     }
                     else{
                         Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()
@@ -144,5 +148,6 @@ class Login_page : AppCompatActivity() {
             Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()
         }
     }
+
 
 }

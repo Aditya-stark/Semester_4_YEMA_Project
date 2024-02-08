@@ -1,5 +1,6 @@
 package com.example.yema
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -52,9 +53,9 @@ class forgot_password_page : AppCompatActivity() {
                     }
             }
 
-        else{
-            Toast.makeText(this, "Email Can't be Empty", Toast.LENGTH_SHORT).show()
-        }
+            else{
+                Toast.makeText(this, "Email Can't be Empty", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

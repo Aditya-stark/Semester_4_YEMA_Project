@@ -58,6 +58,15 @@
        android:layout_marginTop="25dp"
        />
 
+   <CheckBox
+       android:id="@+id/remember_me_checkBox"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Remember Me"
+       android:layout_marginLeft="20dp"
+       android:layout_marginTop="20dp"
+       />
+
    <Button
        android:id="@+id/login_btn"
        android:layout_width="match_parent"
