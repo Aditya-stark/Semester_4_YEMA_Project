@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 //THIS IS THE NEW SPLASH SCREEN PROVIDE AND SUGGESTED BY CHAT GPT TO CHECK THE USER LOGIN STATE
+//Note by Aditya S
 class splash_screen : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth

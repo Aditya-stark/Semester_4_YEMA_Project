@@ -1,13 +1,20 @@
 package com.example.yema
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.yema.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.android.gms.auth.api.signin.GoogleSignIn // Import GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions // Import GoogleSignInOptions
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         auth = FirebaseAuth.getInstance() // Initialize FirebaseAuth
 
         binding.mainSign.setOnClickListener {
@@ -37,5 +43,53 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, Login_page::class.java))
             finish()// Finish MainActivity after signing out
         }
+
+        // Set up bottom navigation
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    // Handle Home selection
+                    Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.transaction -> {
+                    // Handle Transactions selection
+                    Toast.makeText(this, "Transaction", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.budget -> {
+                    // Handle Budget selection
+                    Toast.makeText(this, "Budget", Toast.LENGTH_SHORT).show()
+                    true
+                }
+
+                R.id.profile -> {
+                    // Handle Profile selection
+                    Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
+        }
+
+        // Select the "Home" item by default
+        bottomNavigationView.selectedItemId = R.id.home
+
+        //For the color and text of icons
+        val iconColors = ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf(-android.R.attr.state_checked)),
+            intArrayOf(ContextCompat.getColor(this, R.color.Main_Blue), ContextCompat.getColor(this, R.color.iconGrey))
+        )
+        bottomNavigationView.itemIconTintList = iconColors
+
+        // Set text color selector
+        val textColors = ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf(-android.R.attr.state_checked)),
+            intArrayOf(ContextCompat.getColor(this, R.color.Main_Blue), ContextCompat.getColor(this, R.color.iconGrey))
+        )
+        bottomNavigationView.itemTextColor = textColors
+
+
     }
 }

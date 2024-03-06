@@ -149,6 +149,9 @@
     <color name="Text_color">#000000</color>
     <color name="default_BW">#000000</color>
     <color name="default_light_BW">#91919f</color>
+    <color name="iconGrey">#909090</color>
+    <color name="defaultColor">#FFFFFF</color>
+
 
 
 </resources>
