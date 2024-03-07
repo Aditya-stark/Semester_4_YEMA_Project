@@ -9,6 +9,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.example.yema.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.android.gms.auth.api.signin.GoogleSignIn // Import GoogleSignIn
@@ -50,7 +52,8 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.home -> {
                     // Handle Home selection
-                    Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
+                    loadFragment(HomeFragment())
                     true
                 }
                 R.id.transaction -> {
@@ -92,4 +95,14 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_layout, fragment)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .commit()
+    }
+
+
 }
