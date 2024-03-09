@@ -151,6 +151,7 @@
     <color name="default_light_BW">#91919f</color>
     <color name="iconGrey">#909090</color>
     <color name="defaultColor">#FFFFFF</color>
+    <color name="bg_gradient">#FFE9A7</color>
 
 
 

@@ -3,17 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment"
-    android:background="@color/defaultColor"
-    >
-
-    <View
-        android:id="@+id/gradient_bg"
-        android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:background="@drawable/gradient_background"
-        />
-
+    tools:context=".ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -21,8 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="Welcome to Home Fragment!"
+        android:text="Welcome to Profile Fragment!"
         android:textSize="24sp" />
-
 
 </FrameLayout>

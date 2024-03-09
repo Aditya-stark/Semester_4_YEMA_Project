@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         // Set up bottom navigation
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+//            LOADING FRAGMENTS
             when (item.itemId) {
                 R.id.home -> {
                     // Handle Home selection
@@ -58,18 +59,21 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.transaction -> {
                     // Handle Transactions selection
-                    Toast.makeText(this, "Transaction", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Transaction", Toast.LENGTH_SHORT).show()
+                    loadFragment(TransactionsFragment())
                     true
                 }
                 R.id.budget -> {
                     // Handle Budget selection
-                    Toast.makeText(this, "Budget", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Budget", Toast.LENGTH_SHORT).show()
+                    loadFragment(BudgetFragment())
                     true
                 }
 
                 R.id.profile -> {
                     // Handle Profile selection
-                    Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show()
+                    loadFragment(ProfileFragment())
                     true
                 }
                 else -> false
@@ -97,10 +101,10 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+//    FUNCTION FOR LOADING THE FRAGMENT
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, fragment)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .replace(R.id.frame_layout, fragment)   
             .commit()
     }
 
