@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomeFragment"
-    android:background="@color/defaultColor"
-    >
+    android:background="@color/defaultColor">
 
     <View
         android:id="@+id/gradient_bg"
@@ -14,14 +14,48 @@
         android:background="@drawable/gradient_background"
         />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        >
 
-    <!-- TODO: Update blank fragment layout -->
+        <Spinner
+            android:id="@+id/monthSpinner"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:background="@drawable/custom_spinner_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:popupBackground="@android:color/white"
+            android:spinnerMode="dropdown"/>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/default_profile_pic"
+            app:civ_border_color="@color/Main_Blue"
+            app:civ_border_width="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="Welcome to Home Fragment!"
+        android:text="@string/welcome_to_home_fragment"
         android:textSize="24sp" />
 
 

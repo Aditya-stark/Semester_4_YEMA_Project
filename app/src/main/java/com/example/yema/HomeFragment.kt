@@ -33,7 +33,6 @@ class HomeFragment : Fragment() {
         // Set the status bar color
         window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.bg_gradient)
 
-
         val backgroundView = view.findViewById<View>(R.id.gradient_bg)
 
         // Set gradient background based on dark mode
