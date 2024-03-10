@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.core.content.ContextCompat
+import java.util.Calendar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,7 +24,7 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    private lateinit var monthSpinner: Spinner
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,6 +45,21 @@ class HomeFragment : Fragment() {
             backgroundView.background = ContextCompat.getDrawable(requireContext(), R.drawable.gradient_background)
         }
 
+        // Initialize the Spinner
+        monthSpinner = view.findViewById(R.id.monthSpinner)
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.months_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(R.layout.spinner_dropdown_item_month)
+            monthSpinner.adapter = adapter
+
+            // Set default selection to the current month
+            val currentMonthIndex = getCurrentMonthIndex()
+            monthSpinner.setSelection(currentMonthIndex)
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +76,6 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
-
     }
 
     companion object {
@@ -86,4 +103,8 @@ class HomeFragment : Fragment() {
         return nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES
     }
 
+    private fun getCurrentMonthIndex(): Int {
+        val calendar = Calendar.getInstance()
+        return calendar.get(Calendar.MONTH)
+    }
 }

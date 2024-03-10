@@ -153,6 +153,7 @@
     <color name="defaultColor">#FFFFFF</color>
     <color name="bg_gradient">#FFF6DA</color>
     <color name="spinnerColor">#8EC7FF</color>
+    <color name="dropArrow">#0068FF</color>
 
 
 
