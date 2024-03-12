@@ -154,6 +154,8 @@
     <color name="bg_gradient">#695E3D</color>
     <color name="spinnerColor">#A7A7A7</color>
     <color name="dropArrow">#65A4FF</color>
+    <color name="incomeClr">#009A62</color>
+    <color name="expensesClr">#CC2A36</color>
 
 
 

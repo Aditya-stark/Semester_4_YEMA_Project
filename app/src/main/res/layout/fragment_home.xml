@@ -10,22 +10,22 @@
     <View
         android:id="@+id/gradient_bg"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="350dp"
         android:background="@drawable/gradient_background"
         />
-
+<!--    TOP BAR BOX VIEW-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginLeft="18dp"
         >
 
         <Spinner
             android:id="@+id/monthSpinner"
-            android:layout_width="150dp"
+            android:layout_width="110dp"
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:background="@drawable/custom_spinner_background"
@@ -39,7 +39,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
             android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_height="match_parent"
             android:src="@drawable/default_profile_pic"
             app:civ_border_color="@color/Main_Blue"
             app:civ_border_width="2dp"
@@ -47,8 +47,59 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account Balance"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="90dp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="120dp"
+        android:inputType="numberDecimal"
+        android:text="₹0.00"
+        android:textStyle="bold"
+        android:textColor="@color/Text_color"
+        android:textSize="55sp"
+        android:fontFamily="@font/inter_semibold"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="220dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center_horizontal"
+        >
+        <View
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:background="@color/incomeClr"
+            />
+
+        <View
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:background="@color/expensesClr"
+
+            />
+
+
+    </LinearLayout>
+
+
 
     <TextView
         android:layout_width="wrap_content"
