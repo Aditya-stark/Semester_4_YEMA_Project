@@ -79,6 +79,18 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/rounded_corner_background">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/income_logo"
+
+                android:scaleX="1.4"
+                android:scaleY="1.4"
+
+                android:layout_marginRight="65dp"
+                />
+
         </LinearLayout>
 
         <LinearLayout
@@ -87,6 +99,18 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/rounded_corner_red_background">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/expense_logo"
+
+                android:scaleY="1.1"
+                android:scaleX="1.1"
+
+                android:layout_marginRight="65dp"
+                />
+
         </LinearLayout>
 
     </LinearLayout>
