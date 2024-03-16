@@ -6,22 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import java.util.Calendar
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var monthSpinner: Spinner
@@ -29,21 +24,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Get the window object from the activity
-        val window = requireActivity().window
-        val isDarkModeEnabled = isDarkModeEnabled()
-
-        // Set the status bar color
-        window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.bg_gradient)
-
-        val backgroundView = view.findViewById<View>(R.id.gradient_bg)
-
-        // Set gradient background based on dark mode
-        if (isDarkModeEnabled) {
-            backgroundView.background = ContextCompat.getDrawable(requireContext(), R.drawable.gradient_backgorund_night)
-        } else {
-            backgroundView.background = ContextCompat.getDrawable(requireContext(), R.drawable.gradient_background)
-        }
+        // Your existing code here...
 
         // Initialize the Spinner
         monthSpinner = view.findViewById(R.id.monthSpinner)
@@ -58,6 +39,12 @@ class HomeFragment : Fragment() {
             // Set default selection to the current month
             val currentMonthIndex = getCurrentMonthIndex()
             monthSpinner.setSelection(currentMonthIndex)
+        }
+
+        // Set click listener for the LinearLayout button
+        val linearLayout = view.findViewById<LinearLayout>(R.id.incomeBtn)
+        linearLayout.setOnClickListener {
+            Toast.makeText(requireContext(), "Done", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -79,15 +66,6 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             HomeFragment().apply {
@@ -96,11 +74,6 @@ class HomeFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
-    }
-
-    private fun isDarkModeEnabled(): Boolean {
-        val nightModeFlags = requireContext().resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
-        return nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES
     }
 
     private fun getCurrentMonthIndex(): Int {

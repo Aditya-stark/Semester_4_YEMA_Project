@@ -156,6 +156,10 @@
     <color name="dropArrow">#0068FF</color>
     <color name="incomeClr">#00A86B</color>
     <color name="expensesClr">#FD3C4A</color>
+    <color name="incomeLight">#a1dec8</color>
+    <color name="expensesLight">#fcb7bc</color>
+
+
 
 
 
