@@ -1,5 +1,6 @@
 package com.example.yema
 
+import ProfileFragment
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
@@ -18,7 +19,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions // Import Goog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.Locale
 
-class MainActivity : AppCompatActivity() {
+interface SignOutListener {
+    fun onSignOut()
+}
+class MainActivity : AppCompatActivity(), SignOutListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth // Declare FirebaseAuth
@@ -29,22 +33,28 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance() // Initialize FirebaseAuth
 
-        binding.mainSign.setOnClickListener {
-            // Sign out from Firebase Authentication
-            auth.signOut()
 
-            // Sign out from Google Authentication
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build()
-            val googleSignInClient = GoogleSignIn.getClient(this, gso)
-            googleSignInClient.signOut()
+        val profileFragment = ProfileFragment()
 
-            Toast.makeText(this, "Done Logout", Toast.LENGTH_LONG).show()
+        // Pass the activity as the sign-out listener
+        profileFragment.setSignOutListener(this)
 
-            startActivity(Intent(this, Login_page::class.java))
-            finish()// Finish MainActivity after signing out
-        }
+//        binding.mainSign.setOnClickListener {
+//            // Sign out from Firebase Authentication
+//            auth.signOut()
+//
+//            // Sign out from Google Authentication
+//            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build()
+//            val googleSignInClient = GoogleSignIn.getClient(this, gso)
+//            googleSignInClient.signOut()
+//
+//            Toast.makeText(this, "Done Logout", Toast.LENGTH_LONG).show()
+//
+//            startActivity(Intent(this, Login_page::class.java))
+//            finish()// Finish MainActivity after signing out
+//        }
 
         // Set up bottom navigation
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
@@ -83,6 +93,8 @@ class MainActivity : AppCompatActivity() {
         // Select the "Home" item by default
         bottomNavigationView.selectedItemId = R.id.home
 
+        loadFragment(HomeFragment())
+
         //For the color and text of icons
         val iconColors = ColorStateList(
             arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf(-android.R.attr.state_checked)),
@@ -102,11 +114,25 @@ class MainActivity : AppCompatActivity() {
 
 
 //    FUNCTION FOR LOADING THE FRAGMENT
+override fun onSignOut() {
+    auth.signOut()
+    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestEmail()
+        .build()
+    val googleSignInClient = GoogleSignIn.getClient(this, gso)
+    googleSignInClient.signOut()
+
+    Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+    startActivity(Intent(this, Login_page::class.java))
+    finish()
+}
+
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, fragment)   
+            .replace(R.id.frame_layout, fragment)
             .commit()
     }
+
 
 
 }

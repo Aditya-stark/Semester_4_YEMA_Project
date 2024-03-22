@@ -1,86 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/incomeClr"
-    >
+    android:background="@color/incomeClr">
 
     <TextView
         android:id="@+id/income_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
-        android:text="Income"
-        android:textSize="22dp"
+        android:text="@string/income"
+        android:textSize="22sp"
         android:fontFamily="@font/inter_semibold"
-        android:textColor="@color/Text_color"
-        />
+        android:textColor="@color/Text_color" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="200dp"
+        android:layout_below="@+id/income_label"
         android:layout_marginLeft="18dp"
+        android:layout_marginTop="130dp"
         android:layout_marginRight="18dp"
-
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/amount_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="How much?"
-            android:textSize="18sp"
             android:fontFamily="@font/inter_semibold"
+            android:text="@string/how_much"
             android:textColor="@color/incomeLight"
-            />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/income_amount_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
             android:hint="₹0.00"
             android:inputType="numberDecimal"
-            android:fontFamily="@font/inter_bold"
-            android:textColor="@color/Text_color"
-            android:textSize="70sp" />
+            android:textColor="@color/White"
+            android:textSize="65sp" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="bottom"
+        android:layout_height="250dp"
         android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/in_out_bg">
 
-        >
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="18dp"
+            android:padding="15dp"
+            android:background="@drawable/rounded_gray_border"
 
-    <Spinner
-        android:id="@+id/category_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+            />
 
-    <EditText
-        android:id="@+id/description_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Description"
-        android:inputType="textMultiLine"
-        android:textSize="16sp" />
+        <EditText
+            android:id="@+id/description_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/description"
+            android:inputType="textMultiLine"
+            android:textSize="16sp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="18dp"
+            android:padding="15dp"
+            android:background="@drawable/rounded_gray_border"
+            android:autofillHints="" />
 
-    <Button
-        android:id="@+id/continue_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:text="Continue"
-        android:textSize="16sp" />
+        <Button
+            android:id="@+id/continue_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Continue"
+            android:textSize="16sp"
+            android:textColor="@color/Text_color"
+            android:backgroundTint="@color/Main_Blue"
+            android:background="@drawable/continue_btn"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="18dp"
+            />
 
     </LinearLayout>
 
-</LinearLayout>
+
+
+</RelativeLayout>

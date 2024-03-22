@@ -10,6 +10,8 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.Navigation
 import java.util.Calendar
 
@@ -41,12 +43,6 @@ class HomeFragment : Fragment() {
             monthSpinner.setSelection(currentMonthIndex)
         }
 
-        // Set click listener for the LinearLayout button
-        val linearLayout = view.findViewById<LinearLayout>(R.id.incomeBtn)
-        linearLayout.setOnClickListener {
-            Toast.makeText(requireContext(), "Done", Toast.LENGTH_SHORT).show()
-        }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +58,31 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view =  inflater.inflate(R.layout.fragment_home, container, false)
+
+        // FOR REPLACE THE FRAGMENT OF THE INCOME BUTTON
+        val incomeLinearLayoutButton = view.findViewById<LinearLayout>(R.id.incomeBtn)
+        incomeLinearLayoutButton.setOnClickListener {
+            val fragment = IncomeAdd()
+            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.homeFragment, fragment)
+            fragmentTransaction.addToBackStack(null)  // Optional: Add to back stack
+            fragmentTransaction.commit()
+        }
+
+        val  expensesLinearLayoutButton = view.findViewById<LinearLayout>(R.id.expensesBtn)
+        expensesLinearLayoutButton.setOnClickListener{
+            val fragment = expensesAdd()
+            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.homeFragment, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+        }
+
+
+        return view
     }
 
     companion object {
