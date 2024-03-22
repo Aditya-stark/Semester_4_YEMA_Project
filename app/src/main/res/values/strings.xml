@@ -10,6 +10,8 @@
     <string name="how_much">How much?</string>
     <string name="description">Description</string>
     <string name="category">Category</string>
+    <string name="Home_income">Income</string>
+    <string name="Home_expenses">Expenses</string>
     <string-array name="months_array">
         <item>January</item>
         <item>February</item>

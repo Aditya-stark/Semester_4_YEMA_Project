@@ -8,11 +8,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Spinner
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.Navigation
 import java.util.Calendar
 
 private const val ARG_PARAM1 = "param1"
@@ -73,7 +70,7 @@ class HomeFragment : Fragment() {
 
         val  expensesLinearLayoutButton = view.findViewById<LinearLayout>(R.id.expensesBtn)
         expensesLinearLayoutButton.setOnClickListener{
-            val fragment = expensesAdd()
+            val fragment = ExpensesAdd()
             val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
             val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.homeFragment, fragment)

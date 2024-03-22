@@ -77,43 +77,103 @@
 
         <LinearLayout
             android:id="@+id/incomeBtn"
-            android:layout_width="140dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:gravity="center_vertical"
             android:background="@drawable/rounded_corner_background">
 
             <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/income_logo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="10dp"
+                android:scaleX="2.2"
+                android:scaleY="2.2"
+                />
+            
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/income_logo"
+                android:orientation="vertical"
+                android:layout_marginStart="5dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Home_income"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/White"
+                    android:layout_marginStart="5dp"
+                    android:textSize="12sp"
+                    />
 
-                android:scaleX="1.4"
-                android:scaleY="1.4"
+                <TextView
+                    android:id="@+id/incomeVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹0.00"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:textColor="@color/White"
+                    android:layout_marginStart="5dp"
+                    />
 
-                android:layout_marginRight="65dp"
-                />
+            </LinearLayout>
+
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/expensesBtn"
-            android:layout_width="140dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:gravity="center_vertical"
             android:background="@drawable/rounded_corner_red_background">
 
             <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/expense_logo"
+                android:layout_marginLeft="12dp"
+                android:scaleX="1.9"
+                android:scaleY="1.9"
+                />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/expense_logo"
+                android:orientation="vertical"
+                android:layout_marginStart="5dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Home_expenses"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/White"
+                    android:layout_marginStart="5dp"
+                    android:textSize="12sp"
+                    />
 
-                android:scaleY="1.1"
-                android:scaleX="1.1"
+                <TextView
+                    android:id="@+id/expensesVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹0.00"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:textColor="@color/White"
+                    android:layout_marginStart="5dp"
+                    />
 
-                android:layout_marginRight="65dp"
-                />
+            </LinearLayout>
 
         </LinearLayout>
 
