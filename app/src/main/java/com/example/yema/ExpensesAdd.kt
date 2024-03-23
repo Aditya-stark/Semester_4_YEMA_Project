@@ -58,5 +58,8 @@ class ExpensesAdd : Fragment() {
 
         // Optional: Set default selection to "Select Category"
         spinner.setSelection(0)
+
+
+
     }
 }

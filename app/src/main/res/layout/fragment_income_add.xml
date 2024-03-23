@@ -55,7 +55,7 @@
         android:background="@drawable/in_out_bg">
 
         <Spinner
-            android:id="@+id/category_spinner"
+            android:id="@+id/in_category_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
@@ -81,7 +81,7 @@
             android:autofillHints="" />
 
         <Button
-            android:id="@+id/continue_button"
+            android:id="@+id/in_continue_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

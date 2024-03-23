@@ -51,8 +51,6 @@ class Login_page : AppCompatActivity() {
         val email_editText: EditText = findViewById(R.id.login_email)
         auth = Firebase.auth
 
-
-
 //        Intent
         val signup_btn_hyper: TextView = findViewById<TextView>(R.id.sign_up_btn)
         signup_btn_hyper.setOnClickListener{
@@ -64,8 +62,6 @@ class Login_page : AppCompatActivity() {
         forgotPass.setOnClickListener {
             startActivity(Intent(this, forgot_password_page::class.java))
         }
-
-
 
 //      Show Password
         val drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.show_password_eye)
