@@ -12,20 +12,21 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import java.util.Calendar
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+/*
+* Changes (Code Cleanup, Typo Fix):
+* ~ Removed the not so "necessary" functions => onViewCreated(), onCreate()
+* ~ Merged every code into onCreateView()
+* */
 
 class HomeFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
     private lateinit var monthSpinner: Spinner
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view =  inflater.inflate(R.layout.fragment_home, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Your existing code here...
-
-        // Initialize the Spinner
+        // Spinner Initialization
         monthSpinner = view.findViewById(R.id.monthSpinner)
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -40,23 +41,6 @@ class HomeFragment : Fragment() {
             monthSpinner.setSelection(currentMonthIndex)
         }
 
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_home, container, false)
-
         // FOR REPLACE THE FRAGMENT OF THE INCOME BUTTON
         val incomeLinearLayoutButton = view.findViewById<LinearLayout>(R.id.incomeBtn)
         incomeLinearLayoutButton.setOnClickListener {
@@ -68,7 +52,7 @@ class HomeFragment : Fragment() {
             fragmentTransaction.commit()
         }
 
-        val  expensesLinearLayoutButton = view.findViewById<LinearLayout>(R.id.expensesBtn)
+        val expensesLinearLayoutButton = view.findViewById<LinearLayout>(R.id.expensesBtn)
         expensesLinearLayoutButton.setOnClickListener{
             val fragment = ExpensesAdd()
             val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
@@ -78,19 +62,7 @@ class HomeFragment : Fragment() {
             fragmentTransaction.commit()
         }
 
-
         return view
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 
     private fun getCurrentMonthIndex(): Int {

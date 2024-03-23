@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.MotionEvent
 import android.widget.Button
 import android.widget.CheckBox
@@ -36,7 +37,7 @@ class Login_page : AppCompatActivity() {
     private lateinit var auth:FirebaseAuth
     private lateinit var binding: LoginPageBinding
     private lateinit var googleSignInClient: GoogleSignInClient
-
+    private var GAuthTag: String = "G-Auth Status"
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -109,10 +110,9 @@ class Login_page : AppCompatActivity() {
             }
         }
 
-
         //GOOGLE SIGN IN CODE
-        val gso=GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
-        googleSignInClient = GoogleSignIn.getClient(this,gso)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         binding.signinGoogle.setOnClickListener{
             val signInClient = googleSignInClient.signInIntent
@@ -121,6 +121,7 @@ class Login_page : AppCompatActivity() {
         }
     }
 
+    // Changes: Modified the Listeners ~Penguin5681
     private val launcher=registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             result ->
         if (result.resultCode == Activity.RESULT_OK){
@@ -128,19 +129,24 @@ class Login_page : AppCompatActivity() {
             if (task.isSuccessful){
                 val account : GoogleSignInAccount? = task.result
                 val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
-                auth.signInWithCredential(credential).addOnCompleteListener{
-                    if (it.isSuccessful){
-                        Toast.makeText(this, "Successful", Toast.LENGTH_LONG).show()
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-                    }
-                    else{
-                        Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()
-                    }
+                auth.signInWithCredential(credential).addOnSuccessListener {
+                    // Logging the Login Status => Success
+                    Log.d(GAuthTag, "Login Status")
+
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }.addOnFailureListener {
+                    // Logging the Login Status => Failure
+                    Log.d(GAuthTag, it.message.toString())
+
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                }.addOnCanceledListener {
+                    // Logging the Login Status => Operation Cancelled
+                    Log.d(GAuthTag, "Operation Cancelled")
                 }
             }
         }
-        else{
+        else {
             Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()
         }
     }

@@ -18,7 +18,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn // Import GoogleSignI
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions // Import GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.Locale
-
+/*
+* Changes:
+* ~ Depreciated method fix for bottom nav bar setOnItemSelectedListener() instead of setOnNavigationItemSelectedListener()
+* ~ Unnecessary comment removal from the switch-case (when) => Code Cleanup
+* */
 interface SignOutListener {
     fun onSignOut()
 }
@@ -58,31 +62,27 @@ class MainActivity : AppCompatActivity(), SignOutListener {
 
         // Set up bottom navigation
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-//            LOADING FRAGMENTS
+
+        // Loading the HomeFragment First (Default)
+        bottomNavigationView.selectedItemId = R.id.home
+        loadFragment(HomeFragment())
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    // Handle Home selection
-//                    Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
                     loadFragment(HomeFragment())
                     true
                 }
                 R.id.transaction -> {
-                    // Handle Transactions selection
-//                    Toast.makeText(this, "Transaction", Toast.LENGTH_SHORT).show()
                     loadFragment(TransactionsFragment())
                     true
                 }
                 R.id.budget -> {
-                    // Handle Budget selection
-//                    Toast.makeText(this, "Budget", Toast.LENGTH_SHORT).show()
                     loadFragment(BudgetFragment())
                     true
                 }
 
                 R.id.profile -> {
-                    // Handle Profile selection
-//                    Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show()
                     loadFragment(ProfileFragment())
                     true
                 }
@@ -90,12 +90,7 @@ class MainActivity : AppCompatActivity(), SignOutListener {
             }
         }
 
-        // Select the "Home" item by default
-        bottomNavigationView.selectedItemId = R.id.home
-
-        loadFragment(HomeFragment())
-
-        //For the color and text of icons
+        // For the color and text of icons
         val iconColors = ColorStateList(
             arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf(-android.R.attr.state_checked)),
             intArrayOf(ContextCompat.getColor(this, R.color.Main_Blue), ContextCompat.getColor(this, R.color.iconGrey))
@@ -108,8 +103,6 @@ class MainActivity : AppCompatActivity(), SignOutListener {
             intArrayOf(ContextCompat.getColor(this, R.color.Main_Blue), ContextCompat.getColor(this, R.color.iconGrey))
         )
         bottomNavigationView.itemTextColor = textColors
-
-
     }
 
 
@@ -132,7 +125,4 @@ override fun onSignOut() {
             .replace(R.id.frame_layout, fragment)
             .commit()
     }
-
-
-
 }
