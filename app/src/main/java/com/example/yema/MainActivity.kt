@@ -115,7 +115,7 @@ override fun onSignOut() {
     val googleSignInClient = GoogleSignIn.getClient(this, gso)
     googleSignInClient.signOut()
 
-    Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+    Toast.makeText(this,  "Logged out successfully", Toast.LENGTH_SHORT).show()
     startActivity(Intent(this, Login_page::class.java))
     finish()
 }
