@@ -58,7 +58,7 @@ class ProfileFragment : Fragment() {
         }
 
         uploadButton.setOnClickListener {
-            uploadToFirebaseStorage("com")
+            uploadToFirebaseStorage("com", )
         }
 
         buttonSignOut.setOnClickListener {
@@ -84,9 +84,6 @@ class ProfileFragment : Fragment() {
             ImagePicker.handleImagePickerResult(requireActivity(), requestCode, resultCode, data)!!
         if (selectedImageUri != null) {
             profilePhoto.setImageURI(selectedImageUri)
-        }
-        else {
-            Toast.makeText(requireActivity(), "Select a photo", Toast.LENGTH_LONG).show()
         }
     }
 
