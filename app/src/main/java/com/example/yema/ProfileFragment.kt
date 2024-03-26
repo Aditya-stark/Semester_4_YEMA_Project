@@ -42,7 +42,6 @@ class ProfileFragment : Fragment() {
                     }
                 }
             })
-            builder.create()
             builder.show()
         }
 
