@@ -37,7 +37,7 @@ class ProfileFragment : Fragment() {
         profilePhoto = view.findViewById(R.id.profile_photo_profile_page)
         uploadButton = view.findViewById(R.id.uploadBTN)
         val optionArray = arrayOf("Google Drive", "Google Photos", "Gallery")
-
+        uploadButton = view.findViewById(R.id.uploadBTN)
         profilePhoto.setOnClickListener {
             val builder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
             builder.setTitle("Choose Photo Source")
@@ -58,7 +58,7 @@ class ProfileFragment : Fragment() {
         }
 
         uploadButton.setOnClickListener {
-            uploadToFirebaseStorage("adi@gmail.com")
+            uploadToFirebaseStorage("com")
         }
 
         buttonSignOut.setOnClickListener {
