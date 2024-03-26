@@ -1,5 +1,6 @@
 package com.example.yema
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,10 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import de.hdodenhof.circleimageview.CircleImageView
 import java.util.Calendar
 
 /*
@@ -20,6 +25,7 @@ import java.util.Calendar
 
 class HomeFragment : Fragment() {
     private lateinit var monthSpinner: Spinner
+    private lateinit var profileImageView: CircleImageView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +46,9 @@ class HomeFragment : Fragment() {
             val currentMonthIndex = getCurrentMonthIndex()
             monthSpinner.setSelection(currentMonthIndex)
         }
+        loadGoogleProfile()
+        // Circular Image Initialization
+        profileImageView = view.findViewById(R.id.profile_image_home_fragment)
 
         // FOR REPLACE THE FRAGMENT OF THE INCOME BUTTON
         val incomeLinearLayoutButton = view.findViewById<LinearLayout>(R.id.incomeBtn)
@@ -64,9 +73,16 @@ class HomeFragment : Fragment() {
 
         return view
     }
-
     private fun getCurrentMonthIndex(): Int {
         val calendar = Calendar.getInstance()
         return calendar.get(Calendar.MONTH)
+    }
+
+    // Loading the google profile using the last signed in account
+    private fun loadGoogleProfile() {
+        val currentUser: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(requireActivity())
+        // TODO: Add a profile fragment for name and email
+        val photoUri: Uri? = currentUser?.photoUrl
+        Glide.with(this).load(photoUri).into(profileImageView)
     }
 }
