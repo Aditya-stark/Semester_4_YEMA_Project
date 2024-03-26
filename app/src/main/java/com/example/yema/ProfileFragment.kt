@@ -58,7 +58,7 @@ class ProfileFragment : Fragment() {
         }
 
         uploadButton.setOnClickListener {
-            uploadToFirebaseStorage("com", )
+            uploadToFirebaseStorage("com", selectedImageUri)
         }
 
         buttonSignOut.setOnClickListener {
@@ -82,16 +82,14 @@ class ProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         selectedImageUri =
             ImagePicker.handleImagePickerResult(requireActivity(), requestCode, resultCode, data)!!
-        if (selectedImageUri != null) {
-            profilePhoto.setImageURI(selectedImageUri)
-        }
+        profilePhoto.setImageURI(selectedImageUri)
     }
 
-    private fun uploadToFirebaseStorage(email: String) {
+    private fun uploadToFirebaseStorage(email: String, imageUri: Uri) {
         storageReference = FirebaseStorage.getInstance().getReference()
         var childReference: StorageReference = storageReference.child("profile_images/" + email + ".jpg")
 
-        val uploadTask: UploadTask = childReference.putFile(selectedImageUri)
+        val uploadTask: UploadTask = childReference.putFile(imageUri)
         uploadTask.addOnSuccessListener {
             Toast.makeText(requireActivity(), "Photo Uploaded", Toast.LENGTH_LONG).show()
         }.addOnFailureListener {
