@@ -1,3 +1,4 @@
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
@@ -13,20 +14,20 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.yema.ImagePicker
 import com.example.yema.R
-import com.example.yema.SignOutListener // Import the correct package for SignOutListener
+import com.example.yema.SignOutListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import de.hdodenhof.circleimageview.CircleImageView
-import java.lang.ref.PhantomReference
 
 class ProfileFragment : Fragment() {
 
-    private lateinit var signOutListener: SignOutListener // Declare SignOutListener
+    private lateinit var signOutListener: SignOutListener
     private lateinit var profilePhoto: CircleImageView
     private lateinit var storageReference: StorageReference
     private lateinit var selectedImageUri: Uri
     private lateinit var uploadButton: Button
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,16 +55,22 @@ class ProfileFragment : Fragment() {
                 }
             })
             builder.show()
-//            storageReference.putFile()
         }
 
         uploadButton.setOnClickListener {
-            uploadToFirebaseStorage("com", selectedImageUri)
+            if (::selectedImageUri.isInitialized) {
+                uploadToFirebaseStorage("example@gmail.com", selectedImageUri)
+            } else {
+                Toast.makeText(requireActivity(), "No image selected", Toast.LENGTH_SHORT).show()
+            }
         }
 
         buttonSignOut.setOnClickListener {
-            signOutListener.onSignOut() // Call the sign-out method
+            signOutListener.onSignOut()
         }
+
+        // Initialize storage reference
+        storageReference = FirebaseStorage.getInstance().reference
 
         return view
     }
@@ -77,17 +84,24 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        selectedImageUri =
-            ImagePicker.handleImagePickerResult(requireActivity(), requestCode, resultCode, data)!!
-        profilePhoto.setImageURI(selectedImageUri)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                ImagePicker.PICK_IMAGE_REQUEST,
+                ImagePicker.PICK_IMAGE_FROM_GOOGLE_DRIVE_REQUEST,
+                ImagePicker.PICK_IMAGE_FROM_GOOGLE_PHOTOS_REQUEST -> {
+                    data?.data?.let { uri ->
+                        selectedImageUri = uri
+                        profilePhoto.setImageURI(selectedImageUri)
+                    }
+                }
+            }
+        }
     }
 
     private fun uploadToFirebaseStorage(email: String, imageUri: Uri) {
-        storageReference = FirebaseStorage.getInstance().getReference()
-        var childReference: StorageReference = storageReference.child("profile_images/" + email + ".jpg")
+        val childReference: StorageReference = storageReference.child("profile_images/$email.jpg")
 
         val uploadTask: UploadTask = childReference.putFile(imageUri)
         uploadTask.addOnSuccessListener {
