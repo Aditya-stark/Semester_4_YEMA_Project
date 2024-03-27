@@ -46,9 +46,9 @@ class HomeFragment : Fragment() {
             val currentMonthIndex = getCurrentMonthIndex()
             monthSpinner.setSelection(currentMonthIndex)
         }
-        loadGoogleProfile()
         // Circular Image Initialization
         profileImageView = view.findViewById(R.id.profile_image_home_fragment)
+        loadGoogleProfile()
 
         // FOR REPLACE THE FRAGMENT OF THE INCOME BUTTON
         val incomeLinearLayoutButton = view.findViewById<LinearLayout>(R.id.incomeBtn)

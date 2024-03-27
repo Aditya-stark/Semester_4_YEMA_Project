@@ -23,6 +23,10 @@ import de.hdodenhof.circleimageview.CircleImageView
 class ProfileFragment : Fragment() {
 
     private lateinit var signOutListener: SignOutListener
+    private lateinit var profilePhoto: CircleImageView
+    private lateinit var storageReference: StorageReference
+    private lateinit var selectedImageUri: Uri
+    private lateinit var uploadButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +35,42 @@ class ProfileFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         val buttonSignOut = view.findViewById<Button>(R.id.mainSign)
+        profilePhoto = view.findViewById(R.id.profile_photo_profile_page)
+        uploadButton = view.findViewById(R.id.uploadBTN)
+        val optionArray = arrayOf("Google Drive", "Google Photos", "Gallery")
+        uploadButton = view.findViewById(R.id.uploadBTN)
+        profilePhoto.setOnClickListener {
+            val builder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
+            builder.setTitle("Choose Photo Source")
+            builder.setItems(optionArray, DialogInterface.OnClickListener { dialog, which ->
+                run {
+                    when (which) {
+                        0 -> ImagePicker.openGoogleDrivePicker(requireActivity())
+                        1 -> ImagePicker.openGooglePhotosPicker(requireActivity())
+                        2 -> ImagePicker.openImagePicker(requireActivity())
+                        else -> {
+                            Log.d("TAG", "Finish")
+                        }
+                    }
+                }
+            })
+            builder.show()
+        }
+
+        uploadButton.setOnClickListener {
+            if (::selectedImageUri.isInitialized) {
+                uploadToFirebaseStorage("example@gmail.com", selectedImageUri)
+            } else {
+                Toast.makeText(requireActivity(), "No image selected", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         buttonSignOut.setOnClickListener {
             signOutListener.onSignOut()
         }
+
+        // Initialize storage reference
+        storageReference = FirebaseStorage.getInstance().reference
 
         return view
     }
@@ -44,6 +81,36 @@ class ProfileFragment : Fragment() {
             signOutListener = context
         } else {
             throw RuntimeException("$context must implement SignOutListener")
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        selectedImageUri =
+            ImagePicker.handleImagePickerResult(requireActivity(), requestCode, resultCode, data)!!
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                ImagePicker.PICK_IMAGE_REQUEST,
+                ImagePicker.PICK_IMAGE_FROM_GOOGLE_DRIVE_REQUEST,
+                ImagePicker.PICK_IMAGE_FROM_GOOGLE_PHOTOS_REQUEST -> {
+                    data?.data?.let { uri ->
+                        selectedImageUri = uri
+                        profilePhoto.setImageURI(selectedImageUri)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun uploadToFirebaseStorage(email: String, imageUri: Uri) {
+        val childReference: StorageReference = storageReference.child("profile_images/$email.jpg")
+
+        val uploadTask: UploadTask = childReference.putFile(imageUri)
+        uploadTask.addOnSuccessListener {
+            Toast.makeText(requireActivity(), "Photo Uploaded", Toast.LENGTH_LONG).show()
+        }.addOnFailureListener {
+            Toast.makeText(requireActivity(), it.message, Toast.LENGTH_LONG).show()
         }
     }
 

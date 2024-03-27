@@ -156,7 +156,7 @@
     <color name="dropArrow">#65A4FF</color>
     <color name="incomeClr">#009A62</color>
     <color name="expensesClr">#CC2A36</color>
-
-
+    <color name="FragBG">#000000</color>
+    <color name="FragBgUp">#222222</color>
 
 </resources>

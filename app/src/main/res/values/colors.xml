@@ -158,6 +158,8 @@
     <color name="expensesClr">#FD3C4A</color>
     <color name="incomeLight">#a1dec8</color>
     <color name="expensesLight">#fcb7bc</color>
+    <color name="FragBG">#F6F6F6</color>
+    <color name="FragBgUp">#FFFFFF</color>
 
 
 
