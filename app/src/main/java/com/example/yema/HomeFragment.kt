@@ -1,19 +1,27 @@
 package com.example.yema
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.Calendar
 
@@ -26,11 +34,28 @@ import java.util.Calendar
 class HomeFragment : Fragment() {
     private lateinit var monthSpinner: Spinner
     private lateinit var profileImageView: CircleImageView
+    private lateinit var profileImageDownloadUri: Uri
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
+
+        // Checking for the providers to load the profile accordingly
+        val providerPreferences =
+            requireActivity().getSharedPreferences("login_provider", Context.MODE_PRIVATE)
+        val PROVIDER_ID = providerPreferences.getString("PROVIDER_ID", "")
+
+        when (PROVIDER_ID) {
+            "google.com" -> loadGoogleProfile()
+            "firebase_auth" -> loadFirebaseProfile()
+            "" -> {
+                Log.d("TAG", "Invalid Provider")
+                Toast.makeText(requireActivity(), "Invalid Login", Toast.LENGTH_SHORT).show()
+            }
+
+            else -> Toast.makeText(requireActivity(), "Invalid Login", Toast.LENGTH_SHORT).show()
+        }
 
         // Spinner Initialization
         monthSpinner = view.findViewById(R.id.monthSpinner)
@@ -73,6 +98,27 @@ class HomeFragment : Fragment() {
 
         return view
     }
+
+    // Changes authored by @Penguin5681 => start
+    private fun loadFirebaseProfile() {
+        var currentUserEmail = FirebaseAuth.getInstance().currentUser?.email
+
+        if (currentUserEmail != null) {
+            currentUserEmail = currentUserEmail.replace('@', '_')
+            currentUserEmail = currentUserEmail.replace('.', '_')
+        }
+
+        val childPath = "profile_images/$currentUserEmail.jpg"
+        val imageReference: StorageReference = FirebaseStorage.getInstance().getReference().child(childPath)
+
+        imageReference.downloadUrl.addOnSuccessListener {
+            profileImageDownloadUri = it
+            Picasso.get().load(profileImageDownloadUri).into(profileImageView)
+        }
+    }
+
+    // Changes authored by @Penguin5681 => end
+
     private fun getCurrentMonthIndex(): Int {
         val calendar = Calendar.getInstance()
         return calendar.get(Calendar.MONTH)

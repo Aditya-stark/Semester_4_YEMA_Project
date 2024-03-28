@@ -1,23 +1,18 @@
 package com.example.yema
 
-import ProfileFragment
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.example.yema.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.android.gms.auth.api.signin.GoogleSignIn // Import GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions // Import GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.util.Locale
+
 /*
 * Changes:
 * ~ Depreciated method fix for bottom nav bar setOnItemSelectedListener() instead of setOnNavigationItemSelectedListener()

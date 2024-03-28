@@ -2,35 +2,30 @@ package com.example.yema
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
 import android.view.MotionEvent
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import com.example.yema.databinding.ActivityMainBinding
-import com.example.yema.databinding.ActivitySignUpBinding
 import com.example.yema.databinding.LoginPageBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
-import org.w3c.dom.Text
 
 class Login_page : AppCompatActivity() {
 
@@ -42,9 +37,9 @@ class Login_page : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-
         binding = LoginPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val loginButton = findViewById<Button>(R.id.login_btn)
 
         val instance = FirebaseAuth.getInstance()
@@ -99,7 +94,8 @@ class Login_page : AppCompatActivity() {
             instance.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_LONG).show()
-
+                    val preferences = getSharedPreferences("login_provider", MODE_PRIVATE);
+                    preferences.edit().putString("PROVIDER_ID", "firebase_auth").apply()
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
@@ -121,6 +117,8 @@ class Login_page : AppCompatActivity() {
         }
     }
 
+
+
     // Changes: Modified the Listeners ~Penguin5681
     private val launcher=registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             result ->
@@ -131,8 +129,9 @@ class Login_page : AppCompatActivity() {
                 val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
                 auth.signInWithCredential(credential).addOnSuccessListener {
                     // Logging the Login Status => Success
-                    Log.d(GAuthTag, "Login Status")
-
+                    Log.d(GAuthTag, "Login Status Success")
+                    val preferences = getSharedPreferences("login_provider", MODE_PRIVATE);
+                    preferences.edit().putString("PROVIDER_ID", "google.com").apply()
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }.addOnFailureListener {

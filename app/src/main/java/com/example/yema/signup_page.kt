@@ -44,7 +44,7 @@ class signup_page : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-
+        val _usernameEditText = findViewById<EditText>(R.id.signup_username)
 //        Show Password
         val editText: EditText = findViewById(R.id.signup_password)
         val drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.show_password_eye)
@@ -80,15 +80,20 @@ class signup_page : AppCompatActivity() {
         auth = Firebase.auth
 
         binding.signupBtn.setOnClickListener{
-            //val username = binding.signupUsername.text.toString()
+            val nameString = binding.signupUsername.text.toString()
             val email = binding.signupEmail.text.toString()
             val password = binding.signupPassword.text.toString()
-
             if (checkAllFields()){
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                     if (it.isSuccessful){
                         Toast.makeText(this, "Account Created!!!",Toast.LENGTH_LONG).show()
                         startActivity(Intent(this, Login_page::class.java))
+
+                        // Changes Authored by ~Penguin5681 => start
+                        val preferences = getSharedPreferences("user_prefs_username", MODE_PRIVATE);
+                        preferences.edit().putString("user_username", nameString).apply()
+                        // Changes Authored by ~Penguin5681 => end
+
                         finish()
                     }
                     else{
