@@ -44,7 +44,7 @@ class signup_page : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-        val _usernameEditText = findViewById<EditText>(R.id.signup_username)
+        findViewById<EditText>(R.id.signup_username)
 //        Show Password
         val editText: EditText = findViewById(R.id.signup_password)
         val drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.show_password_eye)

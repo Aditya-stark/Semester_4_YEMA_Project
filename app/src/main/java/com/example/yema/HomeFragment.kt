@@ -73,7 +73,6 @@ class HomeFragment : Fragment() {
         }
         // Circular Image Initialization
         profileImageView = view.findViewById(R.id.profile_image_home_fragment)
-        loadGoogleProfile()
 
         // FOR REPLACE THE FRAGMENT OF THE INCOME BUTTON
         val incomeLinearLayoutButton = view.findViewById<LinearLayout>(R.id.incomeBtn)
@@ -127,7 +126,6 @@ class HomeFragment : Fragment() {
     // Loading the google profile using the last signed in account
     private fun loadGoogleProfile() {
         val currentUser: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(requireActivity())
-        // TODO: Add a profile fragment for name and email
         val photoUri: Uri? = currentUser?.photoUrl
         Glide.with(this).load(photoUri).into(profileImageView)
     }
