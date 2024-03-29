@@ -32,7 +32,6 @@ import java.util.Calendar
 * */
 
 class HomeFragment : Fragment() {
-    private lateinit var monthSpinner: Spinner
     private lateinit var profileImageView: CircleImageView
     private lateinit var profileImageDownloadUri: Uri
     override fun onCreateView(
@@ -40,6 +39,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
+
+        // Circular Image Initialization
+        profileImageView = view.findViewById(R.id.profile_image_home_fragment)
 
         // Checking for the providers to load the profile accordingly
         val providerPreferences =
@@ -58,21 +60,20 @@ class HomeFragment : Fragment() {
         }
 
         // Spinner Initialization
-        monthSpinner = view.findViewById(R.id.monthSpinner)
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.months_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(R.layout.spinner_dropdown_item_month)
-            monthSpinner.adapter = adapter
+//        monthSpinner = view.findViewById(R.id.monthSpinner)
+//        ArrayAdapter.createFromResource(
+//            requireContext(),
+//            R.array.months_array,
+//            android.R.layout.simple_spinner_item
+//        ).also { adapter ->
+//            adapter.setDropDownViewResource(R.layout.spinner_dropdown_item_month)
+//            monthSpinner.adapter = adapter
+//
+//            // Set default selection to the current month
+//            val currentMonthIndex = getCurrentMonthIndex()
+//            monthSpinner.setSelection(currentMonthIndex)
+//        }
 
-            // Set default selection to the current month
-            val currentMonthIndex = getCurrentMonthIndex()
-            monthSpinner.setSelection(currentMonthIndex)
-        }
-        // Circular Image Initialization
-        profileImageView = view.findViewById(R.id.profile_image_home_fragment)
 
         // FOR REPLACE THE FRAGMENT OF THE INCOME BUTTON
         val incomeLinearLayoutButton = view.findViewById<LinearLayout>(R.id.incomeBtn)
@@ -93,6 +94,17 @@ class HomeFragment : Fragment() {
             fragmentTransaction.replace(R.id.homeFragment, fragment)
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
+        }
+
+        val profileCircleBtn = view.findViewById<View>(R.id.profile_image_home_fragment)
+        profileCircleBtn.setOnClickListener{
+            val fragment = ProfileFragment()
+            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.homeFragment, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+
         }
 
         return view
@@ -118,10 +130,7 @@ class HomeFragment : Fragment() {
 
     // Changes authored by @Penguin5681 => end
 
-    private fun getCurrentMonthIndex(): Int {
-        val calendar = Calendar.getInstance()
-        return calendar.get(Calendar.MONTH)
-    }
+
 
     // Loading the google profile using the last signed in account
     private fun loadGoogleProfile() {

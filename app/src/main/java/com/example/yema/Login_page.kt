@@ -34,6 +34,7 @@ class Login_page : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private var GAuthTag: String = "G-Auth Status"
     @SuppressLint("ClickableViewAccessibility")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -94,6 +95,8 @@ class Login_page : AppCompatActivity() {
             instance.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_LONG).show()
+
+
                     val preferences = getSharedPreferences("login_provider", MODE_PRIVATE);
                     preferences.edit().putString("PROVIDER_ID", "firebase_auth").apply()
                     startActivity(Intent(this, MainActivity::class.java))
@@ -115,6 +118,9 @@ class Login_page : AppCompatActivity() {
             //startActivity(signInClient)
             launcher.launch(signInClient)
         }
+
+
+
     }
 
 
@@ -127,6 +133,7 @@ class Login_page : AppCompatActivity() {
             if (task.isSuccessful){
                 val account : GoogleSignInAccount? = task.result
                 val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
+
                 auth.signInWithCredential(credential).addOnSuccessListener {
                     // Logging the Login Status => Success
                     Log.d(GAuthTag, "Login Status Success")

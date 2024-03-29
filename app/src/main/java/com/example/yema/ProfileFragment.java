@@ -203,6 +203,10 @@ public class ProfileFragment extends Fragment {
         assert currentUserAccount != null;
         Uri profileImageUri = currentUserAccount.getPhotoUrl();
         Glide.with(this).load(profileImageUri).into(profileImage);
+        String name = currentUserAccount.getDisplayName();
+        String email = currentUserAccount.getEmail();
+        nameTextView.setText(name);
+        emailTextView.setText(email);
         profileImage.setEnabled(false);
     }
 }

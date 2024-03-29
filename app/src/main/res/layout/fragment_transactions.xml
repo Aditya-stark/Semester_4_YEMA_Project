@@ -3,15 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TransactionsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".TransactionsFragment"
+    android:background="@color/FragBG"
+    >
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="Welcome to Transactions Fragment!"
-        android:textSize="24sp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginLeft="18dp"
+        >
+
+        <Spinner
+            android:id="@+id/monthSpinner"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_spinner_background"
+            android:popupBackground="@android:color/white"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
