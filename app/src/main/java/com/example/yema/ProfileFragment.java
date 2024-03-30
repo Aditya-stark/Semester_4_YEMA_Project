@@ -49,6 +49,7 @@ public class ProfileFragment extends Fragment {
         profileImage = view.findViewById(R.id.profile_photo_profile_page);
         nameTextView = view.findViewById(R.id.username_profile_page);
         emailTextView = view.findViewById(R.id.email_profile_page);
+
         // Checking for the providers to load the profile accordingly
         SharedPreferences providerPreferences = requireActivity().getSharedPreferences("login_provider", Context.MODE_PRIVATE);
         final String PROVIDER_ID = providerPreferences.getString("PROVIDER_ID", "");
@@ -163,7 +164,7 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof SignOutListener) {
             signOutListener = (SignOutListener) context;
@@ -175,7 +176,7 @@ public class ProfileFragment extends Fragment {
         signOutListener = listener;
     }
 
-    // upload the selected media directly to firebase console
+    // uploads the selected media directly to firebase console
     private void uploadToFirebase(Uri imageUri, String email) {
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         email = email.replace('@', '_');
@@ -210,3 +211,4 @@ public class ProfileFragment extends Fragment {
         profileImage.setEnabled(false);
     }
 }
+

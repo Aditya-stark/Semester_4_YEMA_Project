@@ -55,7 +55,7 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/amtBalance"
+        android:id="@+id/account_balance_home_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -112,7 +112,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/incomeVal"
+                    android:id="@+id/income_value_home_fragment_preview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="₹0.00"
@@ -162,7 +162,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/expensesVal"
+                    android:id="@+id/expense_value_home_fragment_preview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="₹0.00"

@@ -1,6 +1,7 @@
 package com.example.yema
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -14,11 +15,14 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 /*
-* Fixes:
+* Fixes (23 March):
 * ~ Fixed a bug where it won't load a fragment upon a successful data push
 *
 * Tweaks (Additional fixes)
@@ -32,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 class IncomeAdd : Fragment() {
     private var DATA_PUSH_STATUS: String = "Realtime Data Push Status"
+    private lateinit var parentReference: DatabaseReference
     @SuppressLint("CutPasteId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,11 +89,11 @@ class IncomeAdd : Fragment() {
         // Optional: Set default selection to "Select Category"
         spinner.setSelection(0)
 
-        val firebaseDataBase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
         val inContinueButton = view.findViewById<Button>(R.id.in_continue_button);
         val amountEditText = view.findViewById<EditText>(R.id.income_amount_input)
         val categorySpinner = view.findViewById<Spinner>(R.id.in_category_spinner)
         val descriptionEditText = view.findViewById<EditText>(R.id.description_edittext)
+        parentReference = FirebaseDatabase.getInstance().getReference("Users")
 
         inContinueButton.setOnClickListener(){
             val amountText: String = amountEditText.text.toString()
@@ -96,23 +101,21 @@ class IncomeAdd : Fragment() {
             val descriptionText: String = descriptionEditText.text.toString()
 
             if (amountText.isNotEmpty() && categorySelectedText.isNotEmpty() && descriptionText.isNotEmpty()) {
-                val childReference = firebaseDataBase.push()
+                val parentNode = requireActivity().getSharedPreferences("user_prefs_username", Context.MODE_PRIVATE)
+                val childPath = parentNode.getString("user_username", "")
+                val expenseReference = parentReference.child(childPath.toString()).child("Income")
 
-                val incomeData = IncomeData()
-                incomeData.amount = amountText
-                incomeData.category = categorySelectedText
-                incomeData.description = descriptionText
+                expenseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val incomeCount = snapshot.childrenCount
+                        val nextId = (incomeCount + 1).toString()
+                        expenseReference.child(nextId).setValue(IncomeData(amountText, categorySelectedText, descriptionText))
+                    }
 
-                childReference.setValue(incomeData).addOnSuccessListener {
-                    Log.d(DATA_PUSH_STATUS, "Data Pushed")
-
-                    // Resetting the values to defaults upon a successful push
-                    amountEditText.setText("")
-                    categorySpinner.setSelection(0)
-                    descriptionEditText.setText("")
-                }.addOnFailureListener{
-                    Log.d(DATA_PUSH_STATUS, it.message.toString())
-                }
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
 
                 replaceFragment(HomeFragment())
             }
@@ -133,8 +136,14 @@ class IncomeAdd : Fragment() {
     }
 }
 
-class IncomeData() {
-    public var amount: String = ""
-    public var category: String = ""
-    public var description: String = ""
+data class IncomeData (
+    val incomeAmount: String,
+    val incomeCategory: String,
+    val incomeDescription: String
+) {
+    constructor() : this("", "", "")
 }
+
+//             val time = Calendar.getInstance().time
+//            val formater = SimpleDateFormat("HH:mm")
+//            println(formater.format(time))

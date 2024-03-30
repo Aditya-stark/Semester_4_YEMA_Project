@@ -30,6 +30,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.util.regex.Pattern
 import kotlin.math.log
 
@@ -38,6 +40,7 @@ class signup_page : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var parentReference: DatabaseReference
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +48,9 @@ class signup_page : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         findViewById<EditText>(R.id.signup_username)
+
+        parentReference = FirebaseDatabase.getInstance().getReference("Users")
+
 //        Show Password
         val editText: EditText = findViewById(R.id.signup_password)
         val drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.show_password_eye)
@@ -89,14 +95,19 @@ class signup_page : AppCompatActivity() {
                         Toast.makeText(this, "Account Created!!!",Toast.LENGTH_LONG).show()
                         startActivity(Intent(this, Login_page::class.java))
 
-                        // Changes Authored by ~Penguin5681 => start
+                        // Changes Authored by ~Penguin5681 => start ------ 28-March
                         val preferences = getSharedPreferences("user_prefs_username", MODE_PRIVATE);
                         preferences.edit().putString("user_username", nameString).apply()
-                        // Changes Authored by ~Penguin5681 => end
+                        // Changes Authored by ~Penguin5681 => end ------ 28-March
+
+                        // Changes Authored by ~Penguin5681 => start ------ 29-March
+                        val childReference = parentReference.child(nameString).push();
+                        childReference.setValue(User(email, nameString))
+                        // Changes Authored by ~Penguin5681 => end ------ 29-March
 
                         finish()
                     }
-                    else{
+                    else {
                         Toast.makeText(this, "Network Error:(",Toast.LENGTH_LONG).show()
                         Log.e("error:", it.exception.toString())
                     }
@@ -155,11 +166,6 @@ class signup_page : AppCompatActivity() {
 //        }
 //    }
 
-
-
-
-
-
 //    FUNCTION TO CHECK THE INPUT FIELD ARE NOT EMPTY
     private fun checkAllFields(): Boolean{
         val email = binding.signupEmail.text.toString()
@@ -190,7 +196,9 @@ class signup_page : AppCompatActivity() {
 
         return true
     }
-
-
-
 }
+
+data class User(
+    val email: String,
+    val name: String
+)

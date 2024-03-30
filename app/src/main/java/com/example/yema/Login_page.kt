@@ -118,9 +118,6 @@ class Login_page : AppCompatActivity() {
             //startActivity(signInClient)
             launcher.launch(signInClient)
         }
-
-
-
     }
 
 
@@ -156,6 +153,5 @@ class Login_page : AppCompatActivity() {
             Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()
         }
     }
-
 
 }
