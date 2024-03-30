@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.atomic.AtomicInteger
 
 class ExpensesAdd : Fragment() {
@@ -93,7 +96,10 @@ class ExpensesAdd : Fragment() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val expenseCount = snapshot.childrenCount
                         val nextId = (expenseCount + 1).toString()
-                        expenseReference.child(nextId).setValue(ExpenseData(amountText, categorySelectedText, descriptionText))
+                        expenseReference.child(nextId).setValue(currentMonth()?.let { it1 ->
+                            ExpenseData(amountText, categorySelectedText, descriptionText,
+                                it1, currentTime())
+                        })
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -118,12 +124,22 @@ class ExpensesAdd : Fragment() {
             .replace(R.id.frame_layout, fragment)
             .commit()
     }
+
+    private fun currentMonth(): String? {
+        return LocalDate.now().month.getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.ENGLISH)
+    }
+
+    private fun currentTime(): String {
+        return LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+    }
 }
 
 data class ExpenseData (
     val expenseAmount: String,
     val expenseCategory: String,
-    val expenseDescription: String
+    val expenseDescription: String,
+    val expenseMonth: String,
+    val expenseTime: String
 ) {
-    constructor() : this("", "", "")
+    constructor() : this("", "", "", "", "")
 }

@@ -20,6 +20,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
 
 /*
 * Fixes (23 March):
@@ -109,7 +114,10 @@ class IncomeAdd : Fragment() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val incomeCount = snapshot.childrenCount
                         val nextId = (incomeCount + 1).toString()
-                        expenseReference.child(nextId).setValue(IncomeData(amountText, categorySelectedText, descriptionText))
+                        expenseReference.child(nextId).setValue(currentMonth()?.let { it1 ->
+                            IncomeData(amountText, categorySelectedText, descriptionText,
+                                it1, currentTime())
+                        })
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -134,16 +142,22 @@ class IncomeAdd : Fragment() {
             .replace(R.id.frame_layout, fragment)
             .commit()
     }
+
+    private fun currentMonth(): String? {
+        return LocalDate.now().month.getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.ENGLISH)
+    }
+
+    private fun currentTime(): String {
+        return LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+    }
 }
 
 data class IncomeData (
     val incomeAmount: String,
     val incomeCategory: String,
-    val incomeDescription: String
+    val incomeDescription: String,
+    val incomeMonth: String,
+    val incomeTime: String
 ) {
-    constructor() : this("", "", "")
+    constructor() : this("", "", "", "", "")
 }
-
-//             val time = Calendar.getInstance().time
-//            val formater = SimpleDateFormat("HH:mm")
-//            println(formater.format(time))
