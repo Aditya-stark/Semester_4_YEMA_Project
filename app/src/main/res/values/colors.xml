@@ -160,8 +160,9 @@
     <color name="expensesLight">#fcb7bc</color>
     <color name="FragBG">#F6F6F6</color>
     <color name="FragBgUp">#FFFFFF</color>
-
-
+    <color name="seeAllClr">#3688FF</color>
+    <color name="seeAllBg">#e5efff</color>
+    <color name="transactionCardBg">#F6F6F6</color>
 
 
 

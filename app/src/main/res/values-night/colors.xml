@@ -158,5 +158,9 @@
     <color name="expensesClr">#CC2A36</color>
     <color name="FragBG">#000000</color>
     <color name="FragBgUp">#222222</color>
+    <color name="seeAllClr">#3688FF</color>
+    <color name="seeAllBg">#2f4667</color>
+    <color name="transactionCardBg">#202020</color>
+
 
 </resources>

@@ -7,8 +7,6 @@
     android:id="@+id/main_activity_constraint_layout"
     tools:context=".MainActivity">
 
-
-
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="0dp"
