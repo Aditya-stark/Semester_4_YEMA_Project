@@ -161,6 +161,9 @@
     <color name="seeAllClr">#3688FF</color>
     <color name="seeAllBg">#2f4667</color>
     <color name="transactionCardBg">#202020</color>
+    <color name="light_text">#91919F</color>
+    <color name="budget_blue">#3084FF</color>
+
 
 
 </resources>

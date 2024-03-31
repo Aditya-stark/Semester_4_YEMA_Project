@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".IncomeAdd"
-    android:background="@color/incomeClr">
+    tools:context=".CreateBudget"
+    android:background="@color/budget_blue">
 
     <TextView
         android:id="@+id/income_label"
@@ -12,32 +12,31 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
-        android:text="@string/income"
+        android:text="Create Budget"
         android:textSize="22sp"
         android:fontFamily="@font/inter_semibold"
-        android:textColor="@color/White" />
-
+        android:textColor="@color/White"
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/income_label"
         android:layout_marginLeft="18dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="80dp"
         android:layout_marginRight="18dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/amount_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_semibold"
-            android:text="@string/how_much"
-            android:textColor="@color/incomeLight"
+            android:text="@string/how_much_budget"
+            android:textColor="#FCFCFC"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/income_amount_input"
+            android:id="@+id/budget_amt_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
@@ -56,38 +55,12 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/in_out_bg">
 
-        <Spinner
-            android:id="@+id/in_category_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginStart="18dp"
-            android:padding="15dp"
-            android:background="@drawable/rounded_gray_border"
-
-            />
-
-        <EditText
-            android:id="@+id/description_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/description"
-            android:inputType="textMultiLine"
-            android:textSize="16sp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginStart="18dp"
-            android:padding="15dp"
-            android:background="@drawable/rounded_gray_border"
-            android:autofillHints="" />
-
         <Button
-            android:id="@+id/in_continue_button"
+            android:id="@+id/set_budget_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Continue"
+            android:text="@string/set_budegt"
             android:textSize="16sp"
             android:textColor="@color/Text_color"
             android:backgroundTint="@color/Main_Blue"

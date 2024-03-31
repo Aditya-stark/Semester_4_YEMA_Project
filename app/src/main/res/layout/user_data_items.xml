@@ -42,9 +42,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="14dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginBottom="8dp"
                 >
                 <TextView
                     android:id="@+id/cardCategory"
@@ -53,6 +54,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    android:fontFamily="@font/inter_medium"
+                    android:textSize="18sp"
                     android:text="Category"
                     />
 
@@ -63,6 +66,9 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    android:fontFamily="@font/inter_medium"
+                    android:textSize="18sp"
+                    android:textColor="@color/Green"
                     android:text="+₹00.00"
                     />
 
@@ -84,6 +90,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:text="Some random description"
+                    android:textColor="@color/light_text"
                     />
 
                 <TextView
@@ -94,6 +101,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:text="9:45 AM"
+                    android:textColor="@color/light_text"
                     />
 
 

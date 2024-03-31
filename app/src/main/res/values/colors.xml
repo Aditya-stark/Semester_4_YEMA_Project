@@ -163,7 +163,8 @@
     <color name="seeAllClr">#3688FF</color>
     <color name="seeAllBg">#e5efff</color>
     <color name="transactionCardBg">#F6F6F6</color>
-
+    <color name="light_text">#91919F</color>
+    <color name="budget_blue">#5b9eff</color>
 
 
 

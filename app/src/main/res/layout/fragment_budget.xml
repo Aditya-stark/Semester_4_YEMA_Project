@@ -1,19 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BudgetFragment"
-    android:background="@color/FragBG"
+    android:background="@color/Main_Blue"
+    android:id="@+id/budget_fragment"
     >
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/in_out_bg"
+        android:gravity="bottom"
+        >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="Welcome to Budget Fragment!"
-        android:textSize="24sp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/budget_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="18dp"
+            >
 
-</FrameLayout>
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+
+        <Button
+            android:id="@+id/create_budget_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Create a Budget"
+            android:fontFamily="@font/inter_semibold"
+            android:textSize="16sp"
+            android:textColor="@color/Text_color"
+            android:backgroundTint="@color/Main_Blue"
+            android:background="@drawable/continue_btn"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginBottom="18dp"
+            />
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+</RelativeLayout>
