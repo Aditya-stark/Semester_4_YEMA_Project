@@ -38,23 +38,6 @@ class MainActivity : AppCompatActivity(), SignOutListener {
         // Pass the activity as the sign-out listener
         profileFragment.setSignOutListener(this)
 
-//        binding.mainSign.setOnClickListener {
-//            // Sign out from Firebase Authentication
-//            auth.signOut()
-//
-//            // Sign out from Google Authentication
-//            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .build()
-//            val googleSignInClient = GoogleSignIn.getClient(this, gso)
-//            googleSignInClient.signOut()
-//
-//            Toast.makeText(this, "Done Logout", Toast.LENGTH_LONG).show()
-//
-//            startActivity(Intent(this, Login_page::class.java))
-//            finish()// Finish MainActivity after signing out
-//        }
-
         // Set up bottom navigation
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
