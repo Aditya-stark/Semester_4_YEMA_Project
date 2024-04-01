@@ -27,7 +27,8 @@ class TransactionsFragment : Fragment() {
     private lateinit var transactionAdapter: TransactionAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var usersDatabaseReference: DatabaseReference
-    private lateinit var flag: String
+    private lateinit var all_transaction_text: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +36,7 @@ class TransactionsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_transactions, container, false)
         monthSpinner = view.findViewById(R.id.monthSpinner)
         recyclerView = view.findViewById(R.id.transaction_recycler_view)
+        all_transaction_text = view.findViewById(R.id.all_transaction_text)
 
         data = ArrayList()
 
@@ -139,7 +141,11 @@ class TransactionsFragment : Fragment() {
             // Set default selection to the current month
             val currentMonthIndex = getCurrentMonthIndex()
             monthSpinner.setSelection(currentMonthIndex)
+            all_transaction_text.setText("All Transaction for " + monthSpinner.selectedItem.toString())
+
         }
+
+
 
         return view
     }
