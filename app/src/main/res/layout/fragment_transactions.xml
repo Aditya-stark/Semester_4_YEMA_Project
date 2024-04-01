@@ -9,8 +9,6 @@
     android:background="@color/FragBG"
     >
 
-    <!-- TODO: Update blank fragment layout -->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
@@ -47,7 +45,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/allTransactionRecycler"
+        android:id="@+id/transaction_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="18dp"

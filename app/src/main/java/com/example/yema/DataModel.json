@@ -1,0 +1,74 @@
+{
+  "Data" : {
+    "Users": {
+      "someone@example.com": {
+        "Income": {
+          "1": {
+            "incomeAmount": 1000,
+            "incomeCategory": "Salary",
+            "incomeDescription": "Monthly paycheck",
+            "incomeMonth": "March",
+            "incomeTime": "2024-03-12T12:30:00"
+          },
+          "2": {
+            "incomeAmount": 1000,
+            "incomeCategory": "Salary",
+            "incomeDescription": "Monthly paycheck",
+            "incomeMonth": "March",
+            "incomeTime": "2024-03-12T12:30:00"
+          }
+        },
+        "Expense": {
+          "1": {
+            "expenseAmount": 250,
+            "expenseCategory": "Rent",
+            "expenseDescription": "Apartment rent",
+            "expenseMonth": "March",
+            "expenseTime": "2024-03-05T09:15:00"
+          },
+          "2": {
+            "incomeAmount": 1000,
+            "incomeCategory": "Salary",
+            "incomeDescription": "Monthly paycheck",
+            "incomeMonth": "March",
+            "incomeTime": "2024-03-12T12:30:00"
+          }
+        }
+      },
+      "anotherUser@example.com": {
+        "Income": {
+          "1": {
+            "incomeAmount": 1000,
+            "incomeCategory": "Salary",
+            "incomeDescription": "Monthly paycheck",
+            "incomeMonth": "March",
+            "incomeTime": "2024-03-12T12:30:00"
+          },
+          "2": {
+            "incomeAmount": 1000,
+            "incomeCategory": "Salary",
+            "incomeDescription": "Monthly paycheck",
+            "incomeMonth": "March",
+            "incomeTime": "2024-03-12T12:30:00"
+          }
+        },
+        "Expense": {
+          "1": {
+            "expenseAmount": 250,
+            "expenseCategory": "Rent",
+            "expenseDescription": "Apartment rent",
+            "expenseMonth": "March",
+            "expenseTime": "2024-03-05T09:15:00"
+          },
+          "2": {
+            "incomeAmount": 1000,
+            "incomeCategory": "Salary",
+            "incomeDescription": "Monthly paycheck",
+            "incomeMonth": "March",
+            "incomeTime": "2024-03-12T12:30:00"
+          }
+        }
+      }
+    }
+  }
+}

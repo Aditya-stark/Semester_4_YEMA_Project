@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -27,18 +28,18 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class ExpensesAdd : Fragment() {
     private lateinit var parentReference: DatabaseReference
+    private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_expenses_add, container, false)
     }
 
     @SuppressLint("CutPasteId")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        firebaseAuth = FirebaseAuth.getInstance()
         val spinner: Spinner = view.findViewById(R.id.category_spinner)
         val categories = arrayOf(
             "Category", "Shopping", "Food", "Transportation", "Housing",
@@ -48,11 +49,8 @@ class ExpensesAdd : Fragment() {
 
         val adapter = object : BaseAdapter() {
             override fun getCount(): Int = categories.size
-
             override fun getItem(position: Int): String = categories[position]
-
             override fun getItemId(position: Int): Long = position.toLong()
-
             override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
                 val textView = convertView as? TextView ?: LayoutInflater.from(requireContext())
                     .inflate(android.R.layout.simple_spinner_item, parent, false) as TextView
@@ -76,11 +74,7 @@ class ExpensesAdd : Fragment() {
         val expenseAmountEditText = view.findViewById<EditText>(R.id.expenses_amount_input)
         val expenseDescriptionEditText = view.findViewById<EditText>(R.id.description_edittext)
         val expenseCategorySpinner = view.findViewById<Spinner>(R.id.category_spinner)
-        parentReference = FirebaseDatabase.getInstance().getReference("Users")
-
-
-        // TODO: Figure out unique id for each transaction
-        val expenseIdx = 1
+        parentReference = FirebaseDatabase.getInstance().getReference("Root/Users")
 
         continueButton.setOnClickListener {
             val amountText: String = expenseAmountEditText.text.toString()
@@ -88,8 +82,9 @@ class ExpensesAdd : Fragment() {
             val descriptionText: String = expenseDescriptionEditText.text.toString()
 
             if (amountText.isNotEmpty() && categorySelectedText.isNotEmpty() && descriptionText.isNotEmpty()) {
-                val parentNode = requireActivity().getSharedPreferences("user_prefs_username", Context.MODE_PRIVATE)
-                val childPath = parentNode.getString("user_username", "")
+                val userEmail = firebaseAuth.currentUser?.email.toString()
+//                val parentNode = requireActivity().getSharedPreferences("user_prefs_username", Context.MODE_PRIVATE)
+                val childPath = userEmail.replace('.', ',')
                 val expenseReference = parentReference.child(childPath.toString()).child("Expenses")
 
                 expenseReference.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -103,7 +98,7 @@ class ExpensesAdd : Fragment() {
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+                        Log.d("Exception Occurred", error.message)
                     }
                 })
 

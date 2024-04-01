@@ -15,8 +15,8 @@
     <string name="upload_image">Upload Image</string>
     <string name="see_all">See All</string>
     <string name="no_budget">You don’t have a budget. Let’s make one so you in control.</string>
-    <string name="how_much_budget">How much do yo want to spend?</string>
-    <string name="set_budegt">Set Budegt</string>
+    <string name="how_much_budget">How much do you want to spend?</string>
+    <string name="set_budegt">Set Budget</string>
     <string-array name="months_array">
         <item>January</item>
         <item>February</item>

@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -42,6 +43,7 @@ import java.util.Calendar
 class IncomeAdd : Fragment() {
     private var DATA_PUSH_STATUS: String = "Realtime Data Push Status"
     private lateinit var parentReference: DatabaseReference
+    private lateinit var firebaseAuth: FirebaseAuth
     @SuppressLint("CutPasteId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +51,7 @@ class IncomeAdd : Fragment() {
     ): View {
 
         val view: View = inflater.inflate(R.layout.fragment_income_add, container, false)
-
+        firebaseAuth = FirebaseAuth.getInstance()
         val spinner: Spinner = view.findViewById(R.id.in_category_spinner)
         val categories = arrayOf(
             "Category", "Salary",
@@ -98,7 +100,7 @@ class IncomeAdd : Fragment() {
         val amountEditText = view.findViewById<EditText>(R.id.income_amount_input)
         val categorySpinner = view.findViewById<Spinner>(R.id.in_category_spinner)
         val descriptionEditText = view.findViewById<EditText>(R.id.description_edittext)
-        parentReference = FirebaseDatabase.getInstance().getReference("Users")
+        parentReference = FirebaseDatabase.getInstance().getReference("Root/Users")
 
         inContinueButton.setOnClickListener(){
             val amountText: String = amountEditText.text.toString()
@@ -106,8 +108,8 @@ class IncomeAdd : Fragment() {
             val descriptionText: String = descriptionEditText.text.toString()
 
             if (amountText.isNotEmpty() && categorySelectedText.isNotEmpty() && descriptionText.isNotEmpty()) {
-                val parentNode = requireActivity().getSharedPreferences("user_prefs_username", Context.MODE_PRIVATE)
-                val childPath = parentNode.getString("user_username", "")
+                val userEmail = firebaseAuth.currentUser?.email.toString()
+                val childPath = userEmail.replace('.', ',')
                 val expenseReference = parentReference.child(childPath.toString()).child("Income")
 
                 expenseReference.addListenerForSingleValueEvent(object : ValueEventListener {

@@ -49,7 +49,7 @@ class signup_page : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
         findViewById<EditText>(R.id.signup_username)
 
-        parentReference = FirebaseDatabase.getInstance().getReference("Users")
+        parentReference = FirebaseDatabase.getInstance().getReference("Root/Users")
 
 //        Show Password
         val editText: EditText = findViewById(R.id.signup_password)
@@ -62,7 +62,7 @@ class signup_page : AppCompatActivity() {
 
             var isPasswordVisible = false
 
-            editText.setOnTouchListener { v, event ->
+            editText.setOnTouchListener { _, event ->
                 if (event.action == MotionEvent.ACTION_UP) {
                     if (event.rawX >= (editText.right - wrappedDrawable.bounds.width())) {
                         editText.inputType = if (isPasswordVisible) {
@@ -101,7 +101,7 @@ class signup_page : AppCompatActivity() {
                         // Changes Authored by ~Penguin5681 => end ------ 28-March
 
                         // Changes Authored by ~Penguin5681 => start ------ 29-March
-                        val childReference = parentReference.child(nameString).push();
+                        val childReference = parentReference.child(email.replace('.',',')).push();
                         childReference.setValue(User(email, nameString))
                         // Changes Authored by ~Penguin5681 => end ------ 29-March
 
@@ -121,7 +121,6 @@ class signup_page : AppCompatActivity() {
 
         binding.signupGoogle.setOnClickListener{
             val signInClient = googleSignInClient.signInIntent
-            //startActivity(signInClient)
             launcher.launch(signInClient)
         }
 
@@ -158,24 +157,11 @@ class signup_page : AppCompatActivity() {
             Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()
         }
     }
-//    override fun onStart() {
-//        super.onStart()
-//
-//        if (auth.currentUser!=null){
-//            startActivity(Intent(this, MainActivity::class.java))
-//        }
-//    }
 
 //    FUNCTION TO CHECK THE INPUT FIELD ARE NOT EMPTY
     private fun checkAllFields(): Boolean{
         val email = binding.signupEmail.text.toString()
 
-//        Username
-//        if (binding.signupUsername.text.toString() == ""){
-//            Toast.makeText(this, "Can't be Empty",Toast.LENGTH_LONG).show()
-//            return false
-//        }
-//        Email
         if (binding.signupEmail.text.toString() == ""){
             Toast.makeText(this, "Can't be Empty",Toast.LENGTH_LONG).show()
             return false
@@ -190,7 +176,7 @@ class signup_page : AppCompatActivity() {
             return false
         }
         if (binding.signupPassword.length() <= 7){
-            Toast.makeText(this, "Password Aleast have 8 letters",Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Password at least have 7 letters",Toast.LENGTH_LONG).show()
             return false
         }
 
@@ -198,7 +184,7 @@ class signup_page : AppCompatActivity() {
     }
 }
 
-data class User(
+data class User (
     val email: String,
     val name: String
 )

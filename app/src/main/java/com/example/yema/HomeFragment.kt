@@ -51,7 +51,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
-        parentReference = FirebaseDatabase.getInstance().getReference("Users")
+
+        // Changes Authored: Change the parent reference location
+
+        parentReference = FirebaseDatabase.getInstance().getReference("Root/Users")
         accountBalanceTextView = view.findViewById(R.id.account_balance_home_fragment)
         accountBalanceIncomePreview = view.findViewById(R.id.income_value_home_fragment_preview)
         accountBalanceExpensePreview = view.findViewById(R.id.expense_value_home_fragment_preview)
@@ -106,14 +109,18 @@ class HomeFragment : Fragment() {
         }
 
         // loading the account balance
-        val parentNode = requireActivity().getSharedPreferences("user_prefs_username", Context.MODE_PRIVATE)
-        val childPath = parentNode.getString("user_username", "")
+//        val parentNode = requireActivity().getSharedPreferences("user_prefs_username", Context.MODE_PRIVATE)
+//        val childPath = parentNode.getString("user_username", "")
+
+        val userEmailKey = FirebaseAuth.getInstance().currentUser?.email
+        val childPath = userEmailKey?.replace('.', ',')
         val expenseReference = parentReference.child(childPath.toString()).child("Expenses")
         val incomeReference = parentReference.child(childPath.toString()).child("Income")
         var totalExpenseAmount = 0
         var totalIncomeAmount = 0
 
 
+        // TODO: Don't Change
         expenseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (expenseSnapshot in snapshot.children) {
@@ -130,6 +137,7 @@ class HomeFragment : Fragment() {
             }
         })
 
+        // TODO: Don't Change
         incomeReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (incomeSnapshot in snapshot.children) {
