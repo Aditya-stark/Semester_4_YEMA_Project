@@ -141,7 +141,21 @@ class TransactionsFragment : Fragment() {
             // Set default selection to the current month
             val currentMonthIndex = getCurrentMonthIndex()
             monthSpinner.setSelection(currentMonthIndex)
-            all_transaction_text.setText("All Transaction for " + monthSpinner.selectedItem.toString())
+//            all_transaction_text.setText("All Transaction for " + monthSpinner.selectedItem.toString())
+            when (monthSpinner.selectedItem.toString()) {
+                "January" -> all_transaction_text.text = "All transactions for January"
+                "February" -> all_transaction_text.text = "All transactions for February"
+                "March" -> all_transaction_text.text = "All transactions for March"
+                "April" -> all_transaction_text.text = "All transactions for April"
+                "May" -> all_transaction_text.text = "All transactions for May"
+                "June" -> all_transaction_text.text = "All transactions for June"
+                "July" -> all_transaction_text.text = "All transactions for July"
+                "August" -> all_transaction_text.text = "All transactions for August"
+                "September" -> all_transaction_text.text = "All transactions for September"
+                "October" -> all_transaction_text.text = "All transactions for October"
+                "November" -> all_transaction_text.text = "All transactions for November"
+                "December" -> all_transaction_text.text = "All transactions for December"
+            }
 
         }
 
