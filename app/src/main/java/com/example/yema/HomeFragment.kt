@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.replace
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -107,6 +108,19 @@ class HomeFragment : Fragment() {
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
         }
+
+        val seeAllBtn = view.findViewById<TextView>(R.id.seeAllBtn)
+        seeAllBtn.setOnClickListener {
+            val fragment: Fragment = TransactionsFragment()
+            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.homeFragment, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+        }
+
+
+
 
         // loading the account balance
 //        val parentNode = requireActivity().getSharedPreferences("user_prefs_username", Context.MODE_PRIVATE)
