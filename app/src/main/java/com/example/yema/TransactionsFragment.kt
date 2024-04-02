@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.util.Calendar
+import kotlin.properties.Delegates
 
 class TransactionsFragment : Fragment() {
     private lateinit var monthSpinner: Spinner
@@ -26,7 +27,8 @@ class TransactionsFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var usersDatabaseReference: DatabaseReference
     private lateinit var allTransactionText: TextView
-
+    private var incomeCategoryIcon by Delegates.notNull<Int>()
+    private var expenseCategoryIcon by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,9 +90,24 @@ class TransactionsFragment : Fragment() {
                     val expenseDescription = expenseMap["expenseDescription"]
                     val expenseMonth = expenseMap["expenseMonth"]
                     val expenseTime = expenseMap["expenseTime"]
+
+                    when (expenseCategory) {
+                        "Shopping" -> expenseCategoryIcon = R.drawable.ex_icon_shopping
+                        "Food" -> expenseCategoryIcon = R.drawable.ex_icon_food
+                        "Transportation" -> expenseCategoryIcon = R.drawable.ex_icon_transport
+                        "Housing" -> expenseCategoryIcon = R.drawable.ex_icon_housing
+                        "Entertainment" -> expenseCategoryIcon = R.drawable.ex_icon_entertainment
+                        "Healthcare" -> expenseCategoryIcon = R.drawable.ex_icon_health
+                        "Travel" -> expenseCategoryIcon = R.drawable.ex_icon_travel
+                        "Education" -> expenseCategoryIcon = R.drawable.ex_icon_education
+                        "Personal Care" -> expenseCategoryIcon = R.drawable.ex_icon_personal_care
+                        "Subscriptions" -> expenseCategoryIcon = R.drawable.ex_icon_subscription
+                        "Other" -> expenseCategoryIcon = R.drawable.ex_icon_other
+                    }
+
                     data.add(
                         TransactionDataModel(
-                            R.drawable.in_icon_business,
+                            expenseCategoryIcon,
                             expenseCategory,
                             expenseDescription,
                             "-₹$expenseAmount",
@@ -107,9 +124,22 @@ class TransactionsFragment : Fragment() {
                     val incomeDescription = incomeMap["incomeDescription"]
                     val incomeMonth = incomeMap["incomeMonth"]
                     val incomeTime = incomeMap["incomeTime"]
+
+                    when (incomeCategory) {
+                        "Salary" -> incomeCategoryIcon = R.drawable.in_icon_salary
+                        "Pocket Money" -> incomeCategoryIcon = R.drawable.in_icon_pocket_money
+                        "Freelance/Consulting" -> incomeCategoryIcon = R.drawable.in_icon_free_lance
+                        "Business Income" -> incomeCategoryIcon = R.drawable.in_icon_business
+                        "Investments" -> incomeCategoryIcon = R.drawable.in_icon_investment
+                        "Rental Income" -> incomeCategoryIcon = R.drawable.in_icon_rent
+                        "Side Hustle" -> incomeCategoryIcon = R.drawable.in_icon_side_hustle
+                        "Gifts" -> incomeCategoryIcon = R.drawable.in_icon_gift
+                        "Other" -> incomeCategoryIcon = R.drawable.in_icon_other
+                    }
+
                     data.add(
                         TransactionDataModel(
-                            R.drawable.in_icon_business,
+                            incomeCategoryIcon,
                             incomeCategory,
                             incomeDescription,
                             "+₹$incomeAmount",

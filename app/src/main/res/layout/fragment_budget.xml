@@ -18,14 +18,13 @@
         >
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/budget_recycle"
+            android:id="@+id/budget_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:layout_marginTop="18dp"
             >
-
 
         </androidx.recyclerview.widget.RecyclerView>
 

@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity(), SignOutListener {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance() // Initialize FirebaseAuth
 
-
         val profileFragment = ProfileFragment()
 
         // Pass the activity as the sign-out listener

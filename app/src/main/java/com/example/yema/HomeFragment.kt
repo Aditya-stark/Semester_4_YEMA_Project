@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -45,7 +44,6 @@ class HomeFragment : Fragment() {
     private lateinit var accountBalanceIncomePreview: TextView
     private lateinit var accountBalanceExpensePreview: TextView
     private lateinit var parentReference: DatabaseReference
-    private val handler = Handler(Looper.getMainLooper())
 
     // Income Data
 
@@ -73,13 +71,15 @@ class HomeFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
         // initializations for income card (recent transactions)
 
+        incomeCardIcon = view.findViewById(R.id.income_cardIcon)
         incomeCardCategory = view.findViewById(R.id.income_cardCategory)
         incomeCardDescription = view.findViewById(R.id.income_cardDescription)
         incomeCardAmount = view.findViewById(R.id.income_cardAmount)
         incomeCardTime = view.findViewById(R.id.income_cardTime)
 
-        // initializations for income card (recent transactions)
+        // initializations for expense card (recent transactions)
 
+        expenseCardIcon = view.findViewById(R.id.expense_cardIcon)
         expenseCardCategory = view.findViewById(R.id.expense_cardCategory)
         expenseCardDescription = view.findViewById(R.id.expense_cardDescription)
         expenseCardAmount = view.findViewById(R.id.expense_cardAmount)
@@ -143,13 +143,9 @@ class HomeFragment : Fragment() {
 
         val seeAllBtn = view.findViewById<TextView>(R.id.seeAllBtn)
         seeAllBtn.setOnClickListener {
-            val fragment: Fragment = TransactionsFragment()
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.homeFragment, fragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
+            switchFragment(TransactionsFragment())
         }
+
 
         val userEmailKey = FirebaseAuth.getInstance().currentUser?.email
         val childPath = userEmailKey?.replace('.', ',')
@@ -206,7 +202,22 @@ class HomeFragment : Fragment() {
                 recentIncomeMap = parseKeyValueString(snapshot.child(snapshot.childrenCount.toString()).value.toString())
                 incomeCardTime.text = recentIncomeMap["incomeTime"]
                 incomeCardAmount.text = "+₹" + recentIncomeMap["incomeAmount"]
+                val incomeCategoryString = recentIncomeMap["incomeCategory"]
+
                 incomeCardCategory.text = recentIncomeMap["incomeCategory"]
+
+                when (incomeCategoryString) {
+                    "Salary" -> incomeCardIcon.setImageResource(R.drawable.in_icon_salary)
+                    "Pocket Money" -> incomeCardIcon.setImageResource(R.drawable.in_icon_pocket_money)
+                    "Freelance/Consulting" -> incomeCardIcon.setImageResource(R.drawable.in_icon_free_lance)
+                    "Business Income" -> incomeCardIcon.setImageResource(R.drawable.in_icon_business)
+                    "Investments" -> incomeCardIcon.setImageResource(R.drawable.in_icon_investment)
+                    "Rental Income" -> incomeCardIcon.setImageResource(R.drawable.in_icon_rent)
+                    "Side Hustle" -> incomeCardIcon.setImageResource(R.drawable.in_icon_side_hustle)
+                    "Gifts" -> incomeCardIcon.setImageResource(R.drawable.in_icon_gift)
+                    "Other" -> incomeCardIcon.setImageResource(R.drawable.in_icon_other)
+                }
+
                 incomeCardDescription.text = recentIncomeMap["incomeDescription"]
             }
 
@@ -222,6 +233,23 @@ class HomeFragment : Fragment() {
                 recentExpenseMap = parseKeyValueString(snapshot.child(snapshot.childrenCount.toString()).value.toString())
                 expenseCardTime.text = recentExpenseMap["expenseTime"]
                 expenseCardAmount.text = "-₹" + recentExpenseMap["expenseAmount"]
+
+                val expenseCardCategoryString = recentExpenseMap["expenseCategory"]
+
+                when (expenseCardCategoryString) {
+                    "Shopping" -> expenseCardIcon.setImageResource(R.drawable.ex_icon_shopping)
+                    "Food" -> expenseCardIcon.setImageResource(R.drawable.ex_icon_food)
+                    "Transportation" -> expenseCardIcon.setImageResource(R.drawable.ex_icon_transport)
+                    "Housing" -> expenseCardIcon.setImageResource(R.drawable.ex_icon_housing)
+                    "Entertainment" -> expenseCardIcon.setImageResource(R.drawable.ex_icon_entertainment)
+                    "Healthcare" -> expenseCardIcon.setImageResource(R.drawable.ex_icon_health)
+                    "Travel" -> expenseCardIcon.setImageResource(R.drawable.ex_icon_travel)
+                    "Education" -> expenseCardIcon.setImageResource(R.drawable.ex_icon_education)
+                    "Personal Care" -> expenseCardIcon.setImageResource(R.drawable.ex_icon_personal_care)
+                    "Subscriptions" -> expenseCardIcon.setImageResource(R.drawable.ex_icon_subscription)
+                    "Other" -> expenseCardIcon.setImageResource(R.drawable.ex_icon_other)
+                }
+
                 expenseCardCategory.text = recentExpenseMap["expenseCategory"]
                 expenseCardDescription.text = recentExpenseMap["expenseDescription"]
             }
@@ -284,5 +312,13 @@ class HomeFragment : Fragment() {
         }
 
         return map
+    }
+    private fun switchFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.homeFragment, fragment)
+            .commit()
+
+        val bottomNavigationBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationBar.selectedItemId = R.id.transaction
     }
 }
