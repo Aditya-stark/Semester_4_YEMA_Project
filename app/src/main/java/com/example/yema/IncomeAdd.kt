@@ -2,6 +2,7 @@ package com.example.yema
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -44,6 +45,7 @@ class IncomeAdd : Fragment() {
     private var DATA_PUSH_STATUS: String = "Realtime Data Push Status"
     private lateinit var parentReference: DatabaseReference
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var incomeIdPreference: SharedPreferences
     @SuppressLint("CutPasteId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

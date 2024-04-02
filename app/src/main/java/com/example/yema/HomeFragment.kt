@@ -30,6 +30,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import java.util.regex.Pattern
 
 /*
 * Changes (Code Cleanup, Typo Fix):
@@ -54,19 +55,22 @@ class HomeFragment : Fragment() {
     private lateinit var incomeCardAmount: TextView
     private lateinit var incomeCardTime: TextView
 
+    // Expense Data
+
     private lateinit var expenseCardIcon: ImageView
     private lateinit var expenseCardCategory: TextView
-    private lateinit var expensecardDescription: TextView
+    private lateinit var expenseCardDescription: TextView
     private lateinit var expenseCardAmount: TextView
     private lateinit var expenseCardTime: TextView
 
+    private lateinit var recentIncomeMap: Map <String, String>
+    private lateinit var recentExpenseMap: Map <String, String>
     @SuppressLint("CutPasteId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
-
         // initializations for income card (recent transactions)
 
         incomeCardCategory = view.findViewById(R.id.income_cardCategory)
@@ -77,7 +81,7 @@ class HomeFragment : Fragment() {
         // initializations for income card (recent transactions)
 
         expenseCardCategory = view.findViewById(R.id.expense_cardCategory)
-        expensecardDescription = view.findViewById(R.id.expense_cardDescription)
+        expenseCardDescription = view.findViewById(R.id.expense_cardDescription)
         expenseCardAmount = view.findViewById(R.id.expense_cardAmount)
         expenseCardTime = view.findViewById(R.id.expense_cardTime)
 
@@ -147,13 +151,6 @@ class HomeFragment : Fragment() {
             fragmentTransaction.commit()
         }
 
-
-
-
-        // loading the account balance
-//        val parentNode = requireActivity().getSharedPreferences("user_prefs_username", Context.MODE_PRIVATE)
-//        val childPath = parentNode.getString("user_username", "")
-
         val userEmailKey = FirebaseAuth.getInstance().currentUser?.email
         val childPath = userEmailKey?.replace('.', ',')
         val expenseReference = parentReference.child(childPath.toString()).child("Expenses")
@@ -161,8 +158,6 @@ class HomeFragment : Fragment() {
         var totalExpenseAmount = 0
         var totalIncomeAmount = 0
 
-
-        // TODO: Don't Change
         expenseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (expenseSnapshot in snapshot.children) {
@@ -179,7 +174,6 @@ class HomeFragment : Fragment() {
             }
         })
 
-        // TODO: Don't Change
         incomeReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (incomeSnapshot in snapshot.children) {
@@ -195,6 +189,48 @@ class HomeFragment : Fragment() {
                 TODO("Not yet implemented")
             }
         })
+
+        var userEmail = FirebaseAuth.getInstance().currentUser?.email
+        userEmail = userEmail?.replace('.', ',')    // Sanitization
+
+        val recentIncomeDataPath = "Root/Users/$userEmail/Income"
+        val recentExpenseDataPath = "Root/Users/$userEmail/Expenses"
+
+        val recentIncomeReference = FirebaseDatabase.getInstance().reference.child(recentIncomeDataPath)
+        val recentExpenseReference = FirebaseDatabase.getInstance().reference.child(recentExpenseDataPath)
+
+        recentIncomeReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            @SuppressLint("SetTextI18n")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.d("RECENT_INCOME_INDEX", snapshot.childrenCount.toString())
+                recentIncomeMap = parseKeyValueString(snapshot.child(snapshot.childrenCount.toString()).value.toString())
+                incomeCardTime.text = recentIncomeMap["incomeTime"]
+                incomeCardAmount.text = "+₹" + recentIncomeMap["incomeAmount"]
+                incomeCardCategory.text = recentIncomeMap["incomeCategory"]
+                incomeCardDescription.text = recentIncomeMap["incomeDescription"]
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("Database Error Home Fragment", "Error$error.message")
+            }
+        })
+
+        recentExpenseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            @SuppressLint("SetTextI18n")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.d("RECENT_EXPENSE_INDEX", snapshot.childrenCount.toString())
+                recentExpenseMap = parseKeyValueString(snapshot.child(snapshot.childrenCount.toString()).value.toString())
+                expenseCardTime.text = recentExpenseMap["expenseTime"]
+                expenseCardAmount.text = "-₹" + recentExpenseMap["expenseAmount"]
+                expenseCardCategory.text = recentExpenseMap["expenseCategory"]
+                expenseCardDescription.text = recentExpenseMap["expenseDescription"]
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("Database Error Home Fragment", "Error$error.message")
+            }
+        })
+
         return view
     }
 
@@ -224,8 +260,29 @@ class HomeFragment : Fragment() {
         val photoUri: Uri? = currentUser?.photoUrl
         Glide.with(this).load(photoUri).into(profileImageView)
     }
+
+    // If it works it works
     private fun updateAccountBalance(totalIncomeAmount: Int, totalExpenseAmount: Int) {
         val accountBalance = totalIncomeAmount - totalExpenseAmount
         "₹$accountBalance".also { accountBalanceTextView.text = it }
+    }
+
+    // If it works it works, don't fuck around with this.
+    fun parseKeyValueString(input: String): Map<String, String> {
+        val pattern = Pattern.compile("([a-zA-Z]+)=(.*?)[,}]")
+        val matcher = pattern.matcher(input)
+        val map = mutableMapOf<String, String>()
+
+        while (matcher.find()) {
+            val key = matcher.group(1)
+            val value = matcher.group(2)
+            if (value != null) {
+                if (key != null) {
+                    map[key.toString()] = value
+                }
+            }
+        }
+
+        return map
     }
 }
