@@ -1,10 +1,12 @@
 package com.example.yema
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
@@ -30,6 +32,7 @@ class TransactionsFragment : Fragment() {
     private var incomeCategoryIcon by Delegates.notNull<Int>()
     private var expenseCategoryIcon by Delegates.notNull<Int>()
 
+    @SuppressLint("CutPasteId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -171,12 +174,39 @@ class TransactionsFragment : Fragment() {
             // Set default selection to the current month
             val currentMonthIndex = getCurrentMonthIndex()
             monthSpinner.setSelection(currentMonthIndex)
+
+            //UPDATING THE ALL TRANSACTION MONTH
+            updateAllTransactionText(currentMonthIndex)
+
+            monthSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                )
+                {
+                    // Update text when a new month is selected
+                    updateAllTransactionText(position)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+
+            }
         }
-
-
 
         return view
     }
+
+    private fun updateAllTransactionText(currentMonthIndex: Int) {
+        val monthsArray = resources.getStringArray(R.array.months_array)
+        val selectedMonth = monthsArray[currentMonthIndex]
+        allTransactionText.text = "All Transactions for $selectedMonth"
+
+    }
+
 
     private fun getCurrentMonthIndex(): Int {
         val calendar = Calendar.getInstance()
