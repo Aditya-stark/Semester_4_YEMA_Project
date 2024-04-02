@@ -132,7 +132,6 @@ class IncomeAdd : Fragment() {
                 replaceFragment(HomeFragment())
             }
             else {
-                // Empty Values (edge case)
                 Log.d("Empty Fields", "Fields empty")
                 Toast.makeText(requireActivity(), "One or more fields empty", Toast.LENGTH_SHORT).show()
             }
