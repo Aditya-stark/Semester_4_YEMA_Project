@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".BudgetFragment"
     android:background="@color/Main_Blue"
-    android:id="@+id/budget_fragment"
-    >
+    android:id="@+id/budget_fragment">
+
     <LinearLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"

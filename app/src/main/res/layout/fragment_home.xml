@@ -213,15 +213,14 @@ a
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             />
-
-
-
+        
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="380dp"
+        android:orientation="vertical"
 
         >
         <androidx.cardview.widget.CardView
@@ -241,7 +240,7 @@ a
                     android:padding="10dp">
 
                     <ImageView
-                        android:id="@+id/cardIcon"
+                        android:id="@+id/income_cardIcon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/business" />
@@ -264,7 +263,7 @@ a
                         android:layout_marginBottom="8dp">
 
                         <TextView
-                            android:id="@+id/cardCategory"
+                            android:id="@+id/income_cardCategory"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_medium"
@@ -275,7 +274,7 @@ a
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/cardAmount"
+                            android:id="@+id/income_cardAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_medium"
@@ -297,7 +296,7 @@ a
                         android:layout_marginEnd="14dp">
 
                         <TextView
-                            android:id="@+id/cardDescription"
+                            android:id="@+id/income_cardDescription"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Some random description"
@@ -309,7 +308,113 @@ a
 
 
                         <TextView
-                            android:id="@+id/cardTime"
+                            android:id="@+id/income_cardTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="9:45 AM"
+                            android:textColor="@color/light_text"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transactionCardBg">
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="14dp"
+                    android:background="@drawable/transaction_item_icon_bg"
+                    android:gravity="center"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/expense_cardIcon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/business" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+
+                    >
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginEnd="14dp"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:id="@+id/expense_cardCategory"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:text="Category"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/expense_cardAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:text="+₹00.00"
+                            android:textColor="@color/Green"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginEnd="14dp">
+
+                        <TextView
+                            android:id="@+id/expense_cardDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Some random description"
+                            android:textColor="@color/light_text"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/expense_cardTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="9:45 AM"

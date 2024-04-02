@@ -10,13 +10,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.replace
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -46,12 +46,40 @@ class HomeFragment : Fragment() {
     private lateinit var parentReference: DatabaseReference
     private val handler = Handler(Looper.getMainLooper())
 
+    // Income Data
+
+    private lateinit var incomeCardIcon: ImageView
+    private lateinit var incomeCardCategory: TextView
+    private lateinit var incomeCardDescription: TextView
+    private lateinit var incomeCardAmount: TextView
+    private lateinit var incomeCardTime: TextView
+
+    private lateinit var expenseCardIcon: ImageView
+    private lateinit var expenseCardCategory: TextView
+    private lateinit var expensecardDescription: TextView
+    private lateinit var expenseCardAmount: TextView
+    private lateinit var expenseCardTime: TextView
+
     @SuppressLint("CutPasteId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
+
+        // initializations for income card (recent transactions)
+
+        incomeCardCategory = view.findViewById(R.id.income_cardCategory)
+        incomeCardDescription = view.findViewById(R.id.income_cardDescription)
+        incomeCardAmount = view.findViewById(R.id.income_cardAmount)
+        incomeCardTime = view.findViewById(R.id.income_cardTime)
+
+        // initializations for income card (recent transactions)
+
+        expenseCardCategory = view.findViewById(R.id.expense_cardCategory)
+        expensecardDescription = view.findViewById(R.id.expense_cardDescription)
+        expenseCardAmount = view.findViewById(R.id.expense_cardAmount)
+        expenseCardTime = view.findViewById(R.id.expense_cardTime)
 
         // Changes Authored: Change the parent reference location
 

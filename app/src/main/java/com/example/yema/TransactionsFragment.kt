@@ -1,12 +1,12 @@
 package com.example.yema
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.storage.FirebaseStorage
 import java.util.Calendar
 
 class TransactionsFragment : Fragment() {
@@ -27,7 +26,8 @@ class TransactionsFragment : Fragment() {
     private lateinit var transactionAdapter: TransactionAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var usersDatabaseReference: DatabaseReference
-    private lateinit var all_transaction_text: TextView
+    private lateinit var allTransactionText: TextView
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +36,7 @@ class TransactionsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_transactions, container, false)
         monthSpinner = view.findViewById(R.id.monthSpinner)
         recyclerView = view.findViewById(R.id.transaction_recycler_view)
-        all_transaction_text = view.findViewById(R.id.all_transaction_text)
+        allTransactionText = view.findViewById(R.id.all_transaction_text)
 
         data = ArrayList()
 
@@ -49,9 +49,10 @@ class TransactionsFragment : Fragment() {
 
                 dataSnapshot.children.forEach { emailSnapshot ->
                     emailSnapshot.children.forEach { userChildSnapshot ->
+                        // Loads only the current users Income and Expense details
                         if (emailSnapshot.key.toString() == FirebaseAuth.getInstance().currentUser?.email.toString().replace('.', ',')) {
                             if (userChildSnapshot.key == "Expenses") {
-                                Log.d("EMAIL", emailSnapshot.key.toString())
+                                Log.d("CURRENT_USER", emailSnapshot.key.toString())
 
                                 userChildSnapshot.children.forEach { expenseSnapshot ->
                                     val expenseMap = mutableMapOf<String, String>()
