@@ -133,17 +133,17 @@ class HomeFragment : Fragment() {
 
         val profileCircleBtn = view.findViewById<View>(R.id.profile_image_home_fragment)
         profileCircleBtn.setOnClickListener{
-            val fragment = ProfileFragment()
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.homeFragment, fragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
+            switchFragment(ProfileFragment())
+            val bottomNavigationBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+            bottomNavigationBar.selectedItemId = R.id.profile
+
         }
 
         val seeAllBtn = view.findViewById<TextView>(R.id.seeAllBtn)
         seeAllBtn.setOnClickListener {
             switchFragment(TransactionsFragment())
+            val bottomNavigationBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+            bottomNavigationBar.selectedItemId = R.id.transaction
         }
 
 
@@ -317,8 +317,5 @@ class HomeFragment : Fragment() {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.homeFragment, fragment)
             .commit()
-
-        val bottomNavigationBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNavigationBar.selectedItemId = R.id.transaction
     }
 }
