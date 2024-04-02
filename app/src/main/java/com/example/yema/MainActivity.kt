@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity(), SignOutListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth // Declare FirebaseAuth
-    public lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,14 +32,13 @@ class MainActivity : AppCompatActivity(), SignOutListener {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance() // Initialize FirebaseAuth
 
-
         val profileFragment = ProfileFragment()
 
         // Pass the activity as the sign-out listener
         profileFragment.setSignOutListener(this)
 
         // Set up bottom navigation
-        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         // Loading the HomeFragment First (Default)
         bottomNavigationView.selectedItemId = R.id.home

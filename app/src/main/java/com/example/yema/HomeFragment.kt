@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -144,13 +143,9 @@ class HomeFragment : Fragment() {
 
         val seeAllBtn = view.findViewById<TextView>(R.id.seeAllBtn)
         seeAllBtn.setOnClickListener {
-            val fragment: Fragment = TransactionsFragment()
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.homeFragment, fragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
+            switchFragment(TransactionsFragment())
         }
+
 
         val userEmailKey = FirebaseAuth.getInstance().currentUser?.email
         val childPath = userEmailKey?.replace('.', ',')
@@ -317,5 +312,13 @@ class HomeFragment : Fragment() {
         }
 
         return map
+    }
+    private fun switchFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.homeFragment, fragment)
+            .commit()
+
+        val bottomNavigationBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationBar.selectedItemId = R.id.transaction
     }
 }
