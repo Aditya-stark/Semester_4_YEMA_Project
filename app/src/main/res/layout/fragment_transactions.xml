@@ -48,6 +48,7 @@
             android:text="All Transaction for"
             android:fontFamily="@font/inter_semibold"
             android:textSize="18dp"
+            android:textColor="@color/Text_color"
             />
 
     </LinearLayout>
@@ -58,8 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginLeft="18dp"
+
         android:layout_marginBottom="18dp"
         tools:listitem="@layout/user_data_items"
         />
